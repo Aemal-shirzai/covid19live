@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+// Import ng-circle-progress
+import { NgCircleProgressModule } from 'ng-circle-progress';
+// import ng2-chart module
+import { ChartsModule } from "ng2-charts";
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,17 +13,21 @@ import { OverallCasesComponent } from './components/overall-cases/overall-cases.
 import { AllCountriesComponent } from './components/all-countries/all-countries.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoadingComponent,
     OverallCasesComponent,
-    AllCountriesComponent
+    AllCountriesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    // Specify ng-circle-progress as an import
+    NgCircleProgressModule.forRoot(),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

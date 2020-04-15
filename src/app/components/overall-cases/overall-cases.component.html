@@ -1,3 +1,6 @@
+<div class="text-danger text-center" *ngIf="overAllError">
+  Could not load some of the data! please try again.
+</div>
 <app-loading *ngIf="overAllDataLoading"></app-loading>
 <div *ngIf="overAllData">
   <div *ngIf="(overAllData | json) != '{}';then showOverAllData;else noOverAllData"></div>
@@ -6,83 +9,154 @@
 <ng-template #showOverAllData>
   <div style="background-color: #99cccc; color:white" class="rounded p-4">
     <div>
-      
+
     </div>
     <div class="row">
-        <img src="assets/images/covid-19.svg" class="col-lg-1" loading="lazy" style="margin-top:-10px;" id="mainIcon">
-        <h5 class="col-lg-4 text-center">Coronavirus Cases:<br> {{overAllData.cases | number}}</h5>
-        <h5 class="col-lg-3 text-center">Deaths: <br>{{overAllData.deaths | number}}</h5>
-        <h5 class="col-lg-4 text-center">Recovered: <br>{{overAllData.recovered | number}} </h5>
+      <img src="assets/images/covid-19.svg" class="col-lg-1" loading="lazy" style="margin-top:-10px;" id="mainIcon">
+      <h5 class="col-lg-4 text-center">Coronavirus Cases:<br> {{overAllData.cases | number}}</h5>
+      <h5 class="col-lg-3 text-center">Deaths: <br>{{overAllData.deaths | number}}</h5>
+      <h5 class="col-lg-4 text-center">Recovered: <br>{{overAllData.recovered | number}} </h5>
     </div>
-    <div class="dropdown-divider"></div>
-    <div class="row text-dark">
+
+    <div class="row text-dark mt-2">
+      <div class="dropdown-divider"></div>
       <div class="card col-lg-4">
         <h5 class="card-header text-center">ACTIVE CASES</h5>
         <div class="card-body">
-            <h5 class="card-title text-center">
-              {{overAllData.active | number}}
-              <small class="text-muted d-block">Currently Infected Patients</small>
-            </h5>
-            <div class="row text-center">
-                <p class="card-text col-lg-6">
-                    <span class="font-weight-bold">
-                      <span class="text-primary">{{(overAllData.active-overAllData.critical) | number}}</span>
-                      <br>({{ (((overAllData.active-overAllData.critical)/overAllData.active)*100).toFixed(1) }}%) 
-                    </span>
-                    <small class="d-block">in Mild Condition</small> 
-                </p>
-                <p class="card-text col-lg-6">
-                    <span class="font-weight-bold"> <span class="text-danger">{{overAllData.critical | number}}</span>
-                      <br> ({{ ((overAllData.critical/overAllData.active)*100).toFixed(1) }}%) 
-                    </span>
-                    <small class="d-block">Serious or Critica</small> 
-                </p>
+          <h5 class="card-title text-center">
+            {{overAllData.active | number}}
+            <small class="text-muted d-block">Currently Infected Patients</small>
+          </h5>
+          <div class="row text-center">
+            <div class="col-lg-6">
+              <p class="card-text">
+                <span class="font-weight-bold">
+                  <span class="text-primary">{{(overAllData.active-overAllData.critical) | number}}</span>
+                  <!-- <br>({{ (((overAllData.active-overAllData.critical)/overAllData.active)*100).toFixed(1) }}%)  -->
+                </span>
+                <small class="d-block">in Mild Condition</small>
+                <circle-progress class="mt-lg-2"
+                  [percent]="((overAllData.active-overAllData.critical)/overAllData.active)*100 " [radius]="100"
+                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#99cccc'"
+                  [innerStrokeColor]="'#99cccc'" [animation]="true" [animationDuration]="300"></circle-progress>
+              </p>
             </div>
+            <div class="col-lg-6">
+              <p class="card-text">
+                <span class="font-weight-bold">
+                  <span class="text-danger">{{overAllData.critical | number}}</span>
+                  <!-- <br> ({{ ((overAllData.critical/overAllData.active)*100).toFixed(1) }}%)  -->
+                </span>
+                <small class="d-block">Serious or Critica</small>
+                <circle-progress class="mt-lg-2" [percent]="(overAllData.critical/overAllData.active)*100"
+                  [radius]="100" [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false"
+                  [responsive]="true" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#dc3545'"
+                  [innerStrokeColor]="'#dc3545'" [animation]="true" [animationDuration]="300"></circle-progress>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card col-lg-4">
         <h5 class="card-header text-center">CLOSED CASES</h5>
         <div class="card-body">
-            <h5 class="card-title text-center">
-              {{ (overAllData.cases - overAllData.active) | number }}
-              <small class="text-muted d-block">Cases which had an outcome:</small>
-            </h5>
-            <div class="row text-center">
-                <p class="card-text col-lg-6">
-                    <span class="font-weight-bold">
-                      <span class="text-success">{{ overAllData.recovered | number }} </span> 
-                       <br>({{ (((overAllData.recovered)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%)
-                    </span>
-                    <small class="d-block">Recovered</small> 
-                </p>
-                <p class="card-text col-lg-6">
-                    <span class="font-weight-bold">{{ overAllData.deaths | number }}
-                      <br>({{ (((overAllData.deaths)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%) 
-                    </span>
-                    <small class="d-block">Deaths</small> 
-                </p>
+          <h5 class="card-title text-center">
+            {{ (overAllData.cases - overAllData.active) | number }}
+            <small class="text-muted d-block">Cases which had an outcome:</small>
+          </h5>
+          <div class="row text-center">
+            <div class="col-lg-6">
+              <p class="card-text">
+                <span class="font-weight-bold">
+                  <span class="text-success">{{ overAllData.recovered | number }} </span>
+                  <!-- <br>({{ (((overAllData.recovered)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%) -->
+                </span>
+                <small class="d-block">Recovered</small>
+                <circle-progress class="mt-lg-2"
+                  [percent]="((overAllData.recovered)/(overAllData.cases - overAllData.active))*100" [radius]="100"
+                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#28a745'"
+                  [innerStrokeColor]="'#28a745'" [animation]="true" [animationDuration]="300"></circle-progress>
+              </p>
             </div>
+            <div class="col-lg-6">
+              <p class="card-text">
+                <span class="font-weight-bold">{{ overAllData.deaths | number }}
+                  <!-- <br>({{ (((overAllData.deaths)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%)  -->
+                </span>
+                <small class="d-block">Deaths</small>
+                <circle-progress class="mt-lg-2"
+                  [percent]="((overAllData.deaths)/(overAllData.cases - overAllData.active))*100" [radius]="100"
+                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
+                  [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card col-lg-4">
         <h5 class="card-header text-center">TODAYS' CASES</h5>
         <div class="card-body">
-            <h5 class="card-title text-center">
-                {{ overAllData.todayCases | number }}
-              <small class="text-muted d-block">Cases in world</small>
-            </h5>
-            <div class="row text-center">
-                <p class="card-text col-lg-12">
-                    <span class="font-weight-bold">
-                      <span class="text-success">{{ overAllData.todayDeaths | number }} </span> <br>
-                      ({{ ((overAllData.todayDeaths/overAllData.todayCases)*100).toFixed(1) }}%)
-                    </span>
-                    <small class="d-block">Deaths</small> 
-                </p>
+          <h5 class="card-title text-center">
+            {{ overAllData.todayCases | number }}
+            <small class="text-muted d-block">Cases in world</small>
+          </h5>
+          <div class="row text-center">
+            <div class="col-lg-12">
+              <p class="card-text">
+                <span class="font-weight-bold">
+                  <span class="text-black">{{ overAllData.todayDeaths | number }} </span> <br>
+                  <!-- ({{ ((overAllData.todayDeaths/overAllData.todayCases)*100).toFixed(1) }}%) -->
+                </span>
+                <small class="d-block">Deaths</small>
+                <circle-progress class="mt-lg-2 col-lg-7"
+                  [percent]="(overAllData.todayDeaths/overAllData.todayCases)*100" [radius]="100" [space]="2"
+                  [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
+                  [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
+              </p>
             </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- graphs part for all historical data -->
+
+    <div class="text-dark  mt-2">
+      <div class="text-danger text-center" *ngIf="overAllHistoricalError">
+        Could Not load graphs! please try again.
+      </div>
+
+      <app-loading *ngIf="overAllHistoricalDataLoading"></app-loading>
+
+      <div class="row" *ngIf="(overAllHistoricalData | json) != '{}'">
+        <div class="dropdown-divider"></div>
+        <div class="card col-lg-4 graphsParent">
+          <h5 class="card-header text-center" style="font-size: 14px;">Total Cases since 16-March-2020</h5>
+          <div class="card-body p-0 pt-1">
+            <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="options" [legend]="legend"
+              [chartType]="allCasesChartType" [colors]="allCasesChartColor"></canvas>
+          </div>
+        </div>
+        <div class="card col-lg-4 graphsParent">
+          <h5 class="card-header text-center" style="font-size: 14px;">Total Recovered since 16-March-2020</h5>
+          <div class="card-body p-0 pt-1">
+            <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="options"
+              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor"></canvas>
+          </div>
+        </div>
+        <div class="card col-lg-4 graphsParent">
+          <h5 class="card-header text-center" style="font-size: 14px;">Total Deaths since 16-March-2020</h5>
+          <div class="card-body p-0 pt-1">
+            <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="options"
+              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </ng-template>
-

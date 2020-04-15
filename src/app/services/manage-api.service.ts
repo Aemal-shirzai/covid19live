@@ -7,17 +7,23 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ManageApiService {
-  baseUrl:string = "https://corona.lmao.ninja";
-  constructor(private http:HttpClient) { }
+  baseUrl: string = "https://corona.lmao.ninja";
+  constructor(private http: HttpClient) { }
 
-  getOverAllData(){
+  getOverAllData() {
     return this.http.get(`${this.baseUrl}/all`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
+  getOverAllHistoricalData() {
+    return this.http.get(`${this.baseUrl}/v2/historical/all`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
 
-  errorHandler(error: HttpErrorResponse){
+  errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
 

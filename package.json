@@ -23,6 +23,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "jquery": "^3.5.0",
+    "ng-circle-progress": "^1.5.1",
     "ng2-charts": "^2.3.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.4.0",
