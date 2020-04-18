@@ -1,5 +1,9 @@
-<div class="text-danger text-center" *ngIf="overAllError">
-  Could not load some of the data! please try again.
+<div class="alert alert-danger" *ngIf="overAllError">
+  <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+  <p class="d-inline-block ml-1"> 
+    Could not load some of the data! 
+    <span class="alert-link span" (click)="refresh()">please try again.</span>
+  </p>
 </div>
 <app-loading *ngIf="overAllDataLoading"></app-loading>
 <div *ngIf="overAllData">
@@ -27,6 +31,7 @@
             {{overAllData.active | number}}
             <small class="text-muted d-block">Currently Infected Patients</small>
           </h5>
+          <div class="dropdown-divider"></div>
           <div class="row text-center">
             <div class="col-lg-6">
               <p class="card-text">
@@ -65,6 +70,7 @@
             {{ (overAllData.cases - overAllData.active) | number }}
             <small class="text-muted d-block">Cases which had an outcome:</small>
           </h5>
+          <div class="dropdown-divider"></div>
           <div class="row text-center">
             <div class="col-lg-6">
               <p class="card-text">
@@ -103,6 +109,7 @@
             {{ overAllData.todayCases | number }}
             <small class="text-muted d-block">Cases in world</small>
           </h5>
+          <div class="dropdown-divider"></div>
           <div class="row text-center">
             <div class="col-lg-12">
               <p class="card-text">
@@ -126,8 +133,13 @@
     <!-- graphs part for all historical data -->
 
     <div class="text-dark  mt-2">
-      <div class="text-danger text-center" *ngIf="overAllHistoricalError">
-        Could Not load graphs! please try again.
+      
+      <div class="alert alert-danger" *ngIf="overAllHistoricalError">
+        <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+        <p class="d-inline-block ml-1"> 
+          Could not load some of the data! 
+          <span class="alert-link span" (click)="refresh()">please try again.</span>
+        </p>
       </div>
 
       <app-loading *ngIf="overAllHistoricalDataLoading"></app-loading>
@@ -137,22 +149,22 @@
         <div class="card col-lg-4 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Cases since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
-            <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="options" [legend]="legend"
-              [chartType]="allCasesChartType" [colors]="allCasesChartColor"></canvas>
+            <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="LineChartOptions" [legend]="legend"
+              [chartType]="allCasesChartType" [colors]="allCasesChartColor" [plugins]='LineChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-4 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Recovered since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
-            <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="options"
-              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor"></canvas>
+            <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="LineChartOptions"
+              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor" [plugins]='LineChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-4 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Deaths since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
-            <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="options"
-              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor"></canvas>
+            <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="LineChartOptions"
+              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor" [plugins]='LineChartPlugins'></canvas>
           </div>
         </div>
       </div>

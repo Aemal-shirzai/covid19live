@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ManageApiService } from 'src/app/services/manage-api.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: 'app-overall-cases',
@@ -107,12 +108,25 @@ export class OverallCasesComponent implements OnInit {
   //   {data:[90,8,1200,20],label:'India Income'}
   // ];
  
-  public options = {
+  public LineChartOptions = {
     scaleShowVerticalLines: false,
     maintainAspectRatio: false,
     responsive: true,
+    plugins:{
+      datalabels: {
+        display: false
+      }, 
+    }
   };
   public legend=true;
+  public lineChartPlugins = [pluginDataLabels]
 
+  refresh(){
+    this.ngOnInit()
+    this.overAllError = false
+    this.overAllDataLoading = true
+    this.overAllHistoricalError = false
+    this.overAllHistoricalDataLoading = true
+  }
 
 }

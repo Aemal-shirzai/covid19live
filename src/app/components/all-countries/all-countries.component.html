@@ -1,1 +1,72 @@
-<p>all-countries works!</p>
+<div class="alert alert-danger" *ngIf="error">
+    <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+    <p class="d-inline-block ml-1"> 
+      Could not load countries data! 
+      <span class="alert-link span" (click)="refresh()">please try again.</span>
+    </p>
+</div>
+<app-loading *ngIf="countriesDataLoading"></app-loading>
+<div class="bg-white rounded p-2" *ngIf="allCountries?.length > 0 || dataForSearch?.length > 0">
+    <div class="dropdown-divider"></div>
+    <h5 class="mb-3 text-center">
+        Confirmed Cases and Deaths by Country
+        <small class="text-muted d-block" style="font-size: 13px;">
+            {{worldInfo.affectedCountries}} countries around the world are affected by <strong>covid-19</strong>
+        </small>
+    </h5>
+
+    <!-- search box -->
+    <div class="col-lg-3 mb-3   p-0">
+        <input type="text" placeholder="Search country..." class="form-control searchBox" [(ngModel)]="searchKey"
+            (input)="searchCountry()">
+    </div>
+    
+    <!-- table for data -->
+    <div class="table-responsive mb-5" style="max-height: 800px;">
+        <table class="table table-bordered" matSort (matSortChange)="sortData($event)" matSortActive="cases" matSortDirection="desc" matSortDisableClear>
+            <thead class="text-muted">
+                <tr>
+                    <th mat-sort-header = "country" start='asc'> Country</th>
+                    <th mat-sort-header = "cases" start="desc">Total Cases</th>
+                    <th mat-sort-header = "todayCases1" start="desc">Today Cases</th>
+                    <th mat-sort-header = "deaths" start="desc">Total Deaths</th>
+                    <th mat-sort-header = "todayDeaths" start="desc">Today Deaths</th>
+                    <th mat-sort-header = "recovered" start="desc">Total Recovered</th>
+                    <th mat-sort-header = "active" start="desc">Active Cases</th>
+                    <th mat-sort-header = "critical" start="desc">Critical Cases</th>
+                    <th mat-sort-header = "casesPerOneMillion" start="desc">Cases/1M</th>
+                    <th mat-sort-header = "deathsPerOneMillion" start="desc">Deaths/1M</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-light text-muted">
+                    <td>World</td>
+                    <td>{{ worldInfo.cases | number}}</td>
+                    <td>{{ worldInfo.todayCases | number }}</td>
+                    <td>{{ worldInfo.deaths | number }}</td>
+                    <td>{{ worldInfo.todayDeaths | number }}</td>
+                    <td>{{ worldInfo.recovered | number }}</td>
+                    <td>{{ worldInfo.active | number }}</td>
+                    <td>{{ worldInfo.critical | number }}</td>
+                    <td>{{ worldInfo.casesPerOneMillion | number }}</td>
+                    <td>{{ worldInfo.deathsPerOneMillion | number }}</td>
+                    <td class="updateDateTable">{{ worldInfo.updated | date:'MMM d, y, h:mm:ss a' }}</td>
+                </tr>
+                <tr *ngFor="let country of allCountries">
+                    <td><a href="#" (click)="countryDetails(country.country)">{{country.country}}</a></td>
+                    <td>{{country.cases | number}} <span class="percentage">({{ ((country.cases/worldInfo.cases)*100).toFixed(3) }}%)</span></td>
+                    <td>{{country.todayCases | number}} <span class="percentage">({{ ((country.todayCases/worldInfo.todayCases)*100).toFixed(3) }}%)</span></td>
+                    <td>{{country.deaths | number}} <span class="percentage">({{ ((country.deaths/worldInfo.deaths)*100).toFixed(3) }}%)</span></td>
+                    <td>{{ country.todayDeaths | number }} <span class="percentage">({{ ((country.todayDeaths/worldInfo.todayDeaths)*100).toFixed(3) }}%)</span></td>
+                    <td>{{ country.recovered | number }} <span class="percentage">({{ ((country.recovered/worldInfo.recovered)*100).toFixed(3) }}%)</span></td>
+                    <td>{{ country.active | number }}<span class="percentage">({{ ((country.active/worldInfo.active)*100).toFixed(3) }}%)</span></td>
+                    <td>{{ country.critical | number }} <span class="percentage">({{ ((country.critical/worldInfo.critical)*100).toFixed(3) }}%)</span></td>
+                    <td>{{ country.casesPerOneMillion | number }}</td>
+                    <td>{{ country.deathsPerOneMillion | number }}</td>
+                    <td class="updateDateTable">{{country.updated | date:'MMM d, y, h:mm:ss a'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

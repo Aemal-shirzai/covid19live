@@ -1,3 +1,9 @@
+.updateDate{
+    font-size: 13px;
+}
+.graphsParent{
+    height: 300px;
+}
 th{
     // padding:12px;
     font-size: 15px;
@@ -14,8 +20,14 @@ td{
     font-size: 10px;
     display: block;
 }
-.span{
-    cursor: pointer;
-    text-decoration: underline;
+
+.flagImg{
+    width: 100px !important;   
+}
+
+@media screen and(max-width:640px){
+    .flagImg{
+        float: none !important;   
+    }
 }
 

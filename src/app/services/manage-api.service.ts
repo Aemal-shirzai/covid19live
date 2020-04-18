@@ -11,13 +11,27 @@ export class ManageApiService {
   constructor(private http: HttpClient) { }
 
   getOverAllData() {
-    return this.http.get(`${this.baseUrl}/all`)
+    return this.http.get(`${this.baseUrl}/v2/all`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
   getOverAllHistoricalData() {
     return this.http.get(`${this.baseUrl}/v2/historical/all`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  getAllCountriesData(){
+    return this.http.get(`${this.baseUrl}/v2/countries`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  getCountryData(country){
+    return this.http.get(`${this.baseUrl}/v2/countries/${country}`)
       .pipe(
         catchError(this.errorHandler)
       )

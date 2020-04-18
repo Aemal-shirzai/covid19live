@@ -1,0 +1,21 @@
+<div class="container">
+    <h3 class="text-center"><strong>Covid-19 Live Statistics</strong></h3>
+    <app-overall-cases #allCasesComponent></app-overall-cases>
+    <app-all-countries 
+        [worldInfo]="allCasesComponent.overAllData"
+    >
+    </app-all-countries>
+
+    <div>
+        <!-- <canvas baseChart 
+            [datasets]="data"
+            [labels]="labels"
+            [options]="options"
+            [legend]="legend"
+            [chartType]="chartType"
+            [colors]="colors"
+        ></canvas> -->
+    </div>
+</div>
+
+

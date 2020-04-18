@@ -1,10 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+/* standard css */
+
+
 body{
     background-color: #f2f2f2 !important;
     color: #333333;
     padding: 14px 14px;
 }
+.searchBox{
+  height:50px !important; 
+}
+.updateDateTable{
+  font-size: 8px !important;
+}
+@media screen and (max-width:640px){
+ 
+  .container{
+    padding: 0 !important;
+  }
 
+  th{
+    font-size: 12px !important;
+  }
+  td{
+      font-size: 12px !important;
+  }
+  .updateDateTable{
+    font-size: 7px !important;
+  }
+  .percentage{
+      font-size: 9px !important; 
+  }
+
+  .alert {
+      font-size: 12px !important;
+  }
+
+}
+
+
+
+// spinner part 
 .spinner {
     margin: 100px auto 0;
     width: 70px;
@@ -47,3 +83,5 @@ body{
       transform: scale(1.0);
     }
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

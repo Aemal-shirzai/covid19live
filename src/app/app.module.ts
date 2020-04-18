@@ -1,33 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 // Import ng-circle-progress
 import { NgCircleProgressModule } from 'ng-circle-progress';
 // import ng2-chart module
 import { ChartsModule } from "ng2-charts";
+import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
 
-
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, AllComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { OverallCasesComponent } from './components/overall-cases/overall-cases.component';
-import { AllCountriesComponent } from './components/all-countries/all-countries.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MatSortModule } from "@angular/material/sort";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent,
-    OverallCasesComponent,
-    AllCountriesComponent,
+    AllComponents,
+
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule  ,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    // Specify ng-circle-progress as an import
     NgCircleProgressModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
