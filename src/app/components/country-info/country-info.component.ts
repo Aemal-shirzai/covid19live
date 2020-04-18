@@ -11,7 +11,7 @@ import { ManageApiService } from 'src/app/services/manage-api.service';
 })
 export class CountryInfoComponent implements OnInit {
   country: string = null;
-  countryData: object = {};
+  countryData: any = {};
 
   // active cases charts properties
   public activeData: ChartDataSets[];
@@ -78,7 +78,7 @@ export class CountryInfoComponent implements OnInit {
     },
   
   };
-  private casesChartPlugin = [pluginDataLabels]
+  public casesChartPlugin = [pluginDataLabels]
   public casesChartLegend = true;
   public casesChartColors = [
     { backgroundColor: ['rgb(153, 204, 204, 0.7)', 'rgb(220, 53, 69, 0.5)'] }

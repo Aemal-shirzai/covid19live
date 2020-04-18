@@ -9,7 +9,7 @@ import {Sort} from '@angular/material/sort';
   styleUrls: ['./all-countries.component.scss']
 })
 export class AllCountriesComponent implements OnInit {
-  @Input() worldInfo:object;
+  @Input() worldInfo:any;
   allCountries;
   countriesDataLoading:boolean = true;
   error:boolean = false

@@ -10,7 +10,7 @@ import * as pluginDataLabels from "chartjs-plugin-datalabels";
   styleUrls: ['./overall-cases.component.scss']
 })
 export class OverallCasesComponent implements OnInit {
-  overAllData: object = {};
+  overAllData: any = {};
   overAllHistoricalData: object = {};
   overAllDataLoading:boolean = true;
   overAllHistoricalDataLoading:boolean = true;
@@ -119,7 +119,7 @@ export class OverallCasesComponent implements OnInit {
     }
   };
   public legend=true;
-  public lineChartPlugins = [pluginDataLabels]
+  public linerChartPlugins = [pluginDataLabels]
 
   refresh(){
     this.ngOnInit()

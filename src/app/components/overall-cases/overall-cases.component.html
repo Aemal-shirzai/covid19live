@@ -7,15 +7,14 @@
 </div>
 <app-loading *ngIf="overAllDataLoading"></app-loading>
 <div *ngIf="overAllData">
-  <div *ngIf="(overAllData | json) != '{}';then showOverAllData;else noOverAllData"></div>
-</div>
+  <!-- <div *ngIf="(overAllData | json) != '{}';then showOverAllData;else noOverAllData"></div> -->
 
-<ng-template #showOverAllData>
+
   <div style="background-color: #99cccc; color:white" class="rounded p-4">
     <div>
 
     </div>
-    <div class="row">
+    <div class="row" *ngIf="overAllData">
       <img src="assets/images/covid-19.svg" class="col-lg-1" loading="lazy" style="margin-top:-10px;" id="mainIcon">
       <h5 class="col-lg-4 text-center">Coronavirus Cases:<br> {{overAllData.cases | number}}</h5>
       <h5 class="col-lg-3 text-center">Deaths: <br>{{overAllData.deaths | number}}</h5>
@@ -150,25 +149,25 @@
           <h5 class="card-header text-center" style="font-size: 14px;">Total Cases since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="LineChartOptions" [legend]="legend"
-              [chartType]="allCasesChartType" [colors]="allCasesChartColor" [plugins]='LineChartPlugins'></canvas>
+              [chartType]="allCasesChartType" [colors]="allCasesChartColor" [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-4 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Recovered since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="LineChartOptions"
-              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor" [plugins]='LineChartPlugins'></canvas>
+              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor" [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-4 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Deaths since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="LineChartOptions"
-              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor" [plugins]='LineChartPlugins'></canvas>
+              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor" [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-</ng-template>
+</div>
