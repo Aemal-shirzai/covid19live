@@ -16,9 +16,18 @@
     </div>
     <div class="row" *ngIf="overAllData">
       <img src="assets/images/covid-19.svg" class="col-lg-1" loading="lazy" style="margin-top:-10px;" id="mainIcon">
-      <h5 class="col-lg-4 text-center">Coronavirus Cases:<br> {{overAllData.cases | number}}</h5>
-      <h5 class="col-lg-3 text-center">Deaths: <br>{{overAllData.deaths | number}}</h5>
-      <h5 class="col-lg-4 text-center">Recovered: <br>{{overAllData.recovered | number}} </h5>
+      <h5 class="col-lg-4 text-center font-weight-bold">
+        Coronavirus Cases:<br> {{overAllData.cases | number}}
+        <div class="dropdown-divider"></div>
+      </h5>
+      <h5 class="col-lg-3 text-center font-weight-bold">
+        Deaths: <br>{{overAllData.deaths | number}}
+        <div class="dropdown-divider"></div>
+      </h5>
+      <h5 class="col-lg-4 text-center font-weight-bold">
+        Recovered: <br>{{overAllData.recovered | number}} 
+        <div class="dropdown-divider"></div>
+      </h5>
     </div>
 
     <div class="row text-dark mt-2">
@@ -45,6 +54,7 @@
                   [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#99cccc'"
                   [innerStrokeColor]="'#99cccc'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
+              <div class="dropdown-divider"></div>
             </div>
             <div class="col-lg-6">
               <p class="card-text">
@@ -58,6 +68,7 @@
                   [responsive]="true" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#dc3545'"
                   [innerStrokeColor]="'#dc3545'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>
@@ -78,12 +89,13 @@
                   <!-- <br>({{ (((overAllData.recovered)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%) -->
                 </span>
                 <small class="d-block">Recovered</small>
-                <circle-progress class="mt-lg-2"
+                <circle-progress class="mt-lg-2" 
                   [percent]="((overAllData.recovered)/(overAllData.cases - overAllData.active))*100" [radius]="100"
                   [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
                   [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#28a745'"
                   [innerStrokeColor]="'#28a745'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
+              <div class="dropdown-divider"></div>
             </div>
             <div class="col-lg-6">
               <p class="card-text">
@@ -97,6 +109,7 @@
                   [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
                   [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>
@@ -117,12 +130,13 @@
                   <!-- ({{ ((overAllData.todayDeaths/overAllData.todayCases)*100).toFixed(1) }}%) -->
                 </span>
                 <small class="d-block">Deaths</small>
-                <circle-progress class="mt-lg-2 col-lg-7"
+                <circle-progress class="mt-lg-2 col-lg-7" style="margin-left:-8px"
                   [percent]="(overAllData.todayDeaths/overAllData.todayCases)*100" [radius]="100" [space]="2"
                   [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
                   [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
                   [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>
@@ -145,21 +159,21 @@
 
       <div class="row" *ngIf="(overAllHistoricalData | json) != '{}'">
         <div class="dropdown-divider"></div>
-        <div class="card col-lg-4 graphsParent">
+        <div class="card col-lg-12 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Cases since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="LineChartOptions" [legend]="legend"
               [chartType]="allCasesChartType" [colors]="allCasesChartColor" [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
-        <div class="card col-lg-4 graphsParent">
+        <div class="card col-lg-6 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Recovered since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="LineChartOptions"
               [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor" [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
-        <div class="card col-lg-4 graphsParent">
+        <div class="card col-lg-6 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Deaths since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="LineChartOptions"

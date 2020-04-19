@@ -1,0 +1,17 @@
+nav {
+    // background-color: #99cccc !important;
+    // color: white !important;
+	.nav-item{
+		cursor: pointer;
+	}
+	.navbar-brand{
+		font-weight: bold;
+		cursor: pointer;
+	}
+}
+.active{
+	font-weight: bold !important;
+    // color: whit !important;
+    // background-color: white !important;
+    // border-radius: 5px;
+}

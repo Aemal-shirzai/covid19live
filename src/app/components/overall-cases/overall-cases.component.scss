@@ -2,7 +2,8 @@
     padding: 0px !important;
 }
 .graphsParent{
-    height: 400px;
+    height: 500px;
+    // width:100% !important;
 }
 #swichSpan{
     cursor: pointer;
@@ -12,11 +13,28 @@
     cursor: pointer;
     text-decoration: underline;
 }
+#mainIcon{
+    width: 100px;
+    // height: 100px;
+    margin:0 auto;
+}
+@media screen and (max-width: 1023px) and (min-width: 768px){
+    .abc{
+      width: 12px !important;
+    }
+    body{
+      background-color: green;
+    }
+  }
 @media screen and (max-width:430px){
     #mainIcon{
         width: 100px;
         height: 100px;
         margin:0 auto;
+    }
+
+    body{
+        background-color:red;
     }
 
 
