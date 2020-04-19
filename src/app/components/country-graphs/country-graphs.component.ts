@@ -64,6 +64,9 @@ export class CountryGraphsComponent implements OnInit {
   }
 
   public casesChartOptions = {
+    legend: {
+      position: "bottom"
+    },
     scaleShowVerticalLines: false,
     scaleShowDrawborder: false,
     maintainAspectRatio: false,
