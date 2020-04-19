@@ -1,10 +1,20 @@
-<div class="container">
-    <h3 class="text-center">Covid-19 Live Statistics {{country}}</h3>
-    <div class="bg-white py-4 pl-2 pr-2">
-        <div class="card">
+<div class="p-sm-5 p-lg-5">
+    <button class="btn btn-sm btn-info p-1" routerLink="">Go Back</button>
+    <h3 class="text-center p-3">Covid-19 Live Statistics {{country}}</h3>
+    <app-loading *ngIf="allDataLoading"></app-loading>
+    <div class="alert alert-danger text-center" *ngIf="overAllError">
+        <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+        <p class="d-inline-block ml-1">
+          Could not load some of the data!
+          <span class="alert-link span" (click)="refresh()">please try again.</span>
+        </p>
+    </div>
+    <div class="bg-white py-4 pl-2 pr-2 rounded">
+        <div class="card" style="border: 0px;">
             <div class="card-header text-center">
                 <div class="">
-                    <img src="{{countryData.countryInfo?.flag}}" loading="lazy" alt="flag" class="float-left img-fluid d-inline-block flagImg mr-2">
+                    <img src="{{countryData.countryInfo?.flag}}" loading="lazy" alt="flag"
+                        class="float-left img-fluid d-inline-block flagImg">
                     <h3 class="d-inline-block">
                         {{country}} Cases
                         <small class="text-muted updateDate d-block">
@@ -24,7 +34,8 @@
                         <div class="dropdown-divider"></div>
                     </div>
                     <div class="col-lg-4 font-weight-bold">
-                        <strong>Total Recovered: <span class="text-success">{{ countryData.recovered | number }}</span></strong>
+                        <strong>Total Recovered: <span
+                                class="text-success">{{ countryData.recovered | number }}</span></strong>
                         <div class="dropdown-divider"></div>
                     </div>
                 </div>
@@ -41,26 +52,28 @@
                         <div class="dropdown-divider"></div>
                         <div class="row text-center">
                             <div class="col-lg-6">
-                              <p class="card-text">
-                                <span class="font-weight-bold">
-                                  <span class="text-primary">{{ (countryData.active - countryData.critical) | number}}</span>
-                                </span>
-                                <small class="d-block">in Mild Condition</small>
-                              </p>
+                                <p class="card-text">
+                                    <span class="font-weight-bold">
+                                        <span
+                                            class="text-primary">{{ (countryData.active - countryData.critical) | number}}</span>
+                                    </span>
+                                    <small class="d-block">in Mild Condition</small>
+                                </p>
                             </div>
                             <div class="col-lg-6">
-                              <p class="card-text">
-                                <span class="font-weight-bold">
-                                  <span class="text-danger">{{ countryData.critical | number }}</span>
-                                </span>
-                                <small class="d-block">Serious or Critica</small>
-                              </p>
+                                <p class="card-text">
+                                    <span class="font-weight-bold">
+                                        <span class="text-danger">{{ countryData.critical | number }}</span>
+                                    </span>
+                                    <small class="d-block">Serious or Critica</small>
+                                </p>
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <div class="graphsParent" *ngIf="activeData">
-                            <canvas baseChart [datasets]="activeData" [labels]="activeLabels" [options]="casesChartOptions" [legend]="casesChartLegend"
-                            [chartType]="casesChartType" [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
+                        <div class="graphsParent col-sm-10 col-lg-10 offset-sm-1 offsset-lg-1" *ngIf="activeData">
+                            <canvas baseChart [datasets]="activeData" [labels]="activeLabels"
+                                [options]="casesChartOptions" [legend]="casesChartLegend" [chartType]="casesChartType"
+                                [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
                         </div>
                     </div>
                 </div>
@@ -76,24 +89,25 @@
                         <div class="dropdown-divider"></div>
                         <div class="row text-center">
                             <div class="col-lg-6">
-                              <p class="card-text">
-                                <span class="font-weight-bold">
-                                  <span class="text-success">{{ countryData.recovered | number}}</span>                          
-                                </span>
-                                <small class="d-block">Recovered</small>
-                              </p>
+                                <p class="card-text">
+                                    <span class="font-weight-bold">
+                                        <span class="text-success">{{ countryData.recovered | number}}</span>
+                                    </span>
+                                    <small class="d-block">Recovered</small>
+                                </p>
                             </div>
                             <div class="col-lg-6">
-                              <p class="card-text">
-                                <span class="font-weight-bold text-muted">{{ countryData.deaths | number }}</span>
-                                <small class="d-block">Deaths</small>
-                              </p>
+                                <p class="card-text">
+                                    <span class="font-weight-bold text-muted">{{ countryData.deaths | number }}</span>
+                                    <small class="d-block">Deaths</small>
+                                </p>
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <div class="graphsParent" *ngIf="closedData">
-                            <canvas baseChart [datasets]="closedData" [labels]="closedLabels" [options]="casesChartOptions" [legend]="casesChartLegend"
-                            [chartType]="casesChartType" [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
+                        <div class="graphsParent col-sm-10 col-lg-10 offset-sm-1 offsset-lg-1" *ngIf="closedData">
+                            <canvas baseChart [datasets]="closedData" [labels]="closedLabels"
+                                [options]="casesChartOptions" [legend]="casesChartLegend" [chartType]="casesChartType"
+                                [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
                         </div>
                     </div>
                 </div>
@@ -109,61 +123,26 @@
                         <div class="dropdown-divider"></div>
                         <div class="row text-center">
                             <div class="col-lg-12">
-                              <p class="card-text">
-                                <span class="font-weight-bold">
-                                  <span class="text-muted">{{ countryData.todayDeaths | number }}</span>                       
-                                </span>
-                                <small class="d-block">Deaths</small>
-                              </p>
+                                <p class="card-text">
+                                    <span class="font-weight-bold">
+                                        <span class="text-muted">{{ countryData.todayDeaths | number }}</span>
+                                    </span>
+                                    <small class="d-block">Deaths</small>
+                                </p>
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <div class="graphsParent" *ngIf="todayData">
-                            <canvas baseChart [datasets]="todayData" [labels]="todayLabels" [options]="casesChartOptions" [legend]="casesChartLegend"
-                            [chartType]="casesChartType" [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
+                        <div class="graphsParent col-sm-10 col-lg-10 offset-sm-1 offsset-lg-1" *ngIf="todayData">
+                            <canvas baseChart [datasets]="todayData" [labels]="todayLabels"
+                                [options]="casesChartOptions" [legend]="casesChartLegend" [chartType]="casesChartType"
+                                [colors]="casesChartColors" [plugins]="casesChartPlugin"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="dropdown-divider"></div>
-            <!-- All Provinces Data -->
-            <div class="bg-white rounded p-4">
-                <h5 class="mb-3 text-center">Cofirmed Cases and Deaths by provice</h5>
-                <!-- search box -->
-                <div class="col-lg-3 mb-3   p-0">
-                    <input type="text" placeholder="Search  province..." class="form-control searchBox" >
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="text-muted">
-                            <tr>
-                                <th>Province</th>
-                                <th>Total Cases</th>
-                                <th>Today Cases</th>
-                                <th>Total Deaths</th>
-                                <th>Today Deaths</th>
-                                <th>Total Recovered</th>
-                                <th>Active Cases</th>
-                                <th>Critical Cases</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="text-muted">Kabul</span></td>
-                                <td>644,348 <span class="percentage">(12%)</span></td>
-                                <td>235,1 <span class="percentage">(12%)</span></td>
-                                <td>205,83 <span class="percentage">(12%)</span></td>
-                                <td>790+ <span class="percentage">(12%)</span></td>
-                                <td>303,301 <span class="percentage">(12%)</span></td>
-                                <td>500 <span class="percentage">(12%)</span></td>
-                                <td>900 <span class="percentage">(12%)</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
 
+        <!-- countries grapsh for historical data -->
+        <app-country-graphs [country]="country"></app-country-graphs>
     </div>
 </div>
-

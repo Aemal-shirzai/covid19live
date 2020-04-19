@@ -12,13 +12,18 @@ import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
 import { AppRoutingModule, AllComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSortModule } from "@angular/material/sort";
+import { CountryGraphsComponent } from './components/country-graphs/country-graphs.component';
+
+import { DatePipe } from '@angular/common';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AllComponents,
-
+    CountryGraphsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,7 @@ import { MatSortModule } from "@angular/material/sort";
     ChartsModule,
     MatSortModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,44 @@
+<div class="dropdown-divider"></div>
+<div class="p-2 pt-4">
+    <h5>Compare {{ country }} Covid-19 Casese</h5>
+    <div *ngIf="compareCasesData" class="col-lg-10 col-sm-10 charts mb-3">
+        <button class="btn btn-sm btn-outline-info active ml-3" (click)="changeCharType('bar',$event,lineBtn)"
+            #barBtn>Bar Chart</button>
+        <button class="btn btn-sm btn-outline-info ml-1" (click)="changeCharType('line',$event,barBtn)" #lineBtn>Linear
+            Chart</button>
+        <canvas baseChart [datasets]="compareCasesData" [labels]="compareCasesLabel" [options]="casesChartOptions"
+            [legend]="casesChartLegend" [chartType]="compareCasesType" [colors]="compareCasesColors"
+            [plugins]="casesChartPlugin">
+        </canvas>
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="p-2 pt-4">
+    <h5>Total {{ country }} Covid-19 Cases</h5>
+    <div *ngIf="totalCasesData" class="col-lg-10 col-sm-10 charts">
+        <canvas baseChart [datasets]="totalCasesData" [labels]="totalCasesLabel" [options]="casesChartOptions"
+            [legend]="casesChartLegend" [chartType]="totalCasesType" [colors]="totalCasesColors"
+            [plugins]="casesChartPlugin">
+        </canvas>
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="p-2 pt-4">
+    <h5>Total {{ country }} Covid-19 Death Cases</h5>
+    <div *ngIf="totalDeathCasesData" class="col-lg-10 col-sm-10 charts">
+        <canvas baseChart [datasets]="totalDeathCasesData" [labels]="totalDeathCasesLabel" [options]="casesChartOptions"
+            [legend]="casesChartLegend" [chartType]="totalDeathCasesType" [colors]="totalDeathCasesColors"
+            [plugins]="casesChartPlugin">
+        </canvas>
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="p-2 pt-4">
+    <h5>Total {{ country }} Covid-19 Recovered Cases</h5>
+    <div *ngIf="totalRecoveredCasesData" class="col-lg-10 col-sm-10 charts">
+        <canvas baseChart [datasets]="totalRecoveredCasesData" [labels]="totalRecoveredCasesLabel"
+            [options]="casesChartOptions" [legend]="casesChartLegend" [chartType]="totalRecoveredCasesType"
+            [colors]="totalRecoveredCasesColors" [plugins]="casesChartPlugin">
+        </canvas>
+    </div>
+</div>

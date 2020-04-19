@@ -10,12 +10,15 @@ export class ManageApiService {
   baseUrl: string = "https://corona.lmao.ninja";
   constructor(private http: HttpClient) { }
 
+  // cases data for all world
   getOverAllData() {
     return this.http.get(`${this.baseUrl}/v2/all`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
+
+  // historical data for all world
   getOverAllHistoricalData() {
     return this.http.get(`${this.baseUrl}/v2/historical/all`)
       .pipe(
@@ -23,15 +26,25 @@ export class ManageApiService {
       )
   }
 
-  getAllCountriesData(){
+  // get countries all data
+  getAllCountriesData() {
     return this.http.get(`${this.baseUrl}/v2/countries`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
-  getCountryData(country){
+  // get data for a single country
+  getCountryData(country) {
     return this.http.get(`${this.baseUrl}/v2/countries/${country}`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  // get historical data for single country
+  getCountryHistoricalData(country) {
+    return this.http.get(`${this.baseUrl}/v2/historical/${country}`)
       .pipe(
         catchError(this.errorHandler)
       )

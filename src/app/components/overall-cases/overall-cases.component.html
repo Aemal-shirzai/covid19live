@@ -1,7 +1,7 @@
 <div class="alert alert-danger" *ngIf="overAllError">
   <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
-  <p class="d-inline-block ml-1"> 
-    Could not load some of the data! 
+  <p class="d-inline-block ml-1">
+    Could not load some of the data!
     <span class="alert-link span" (click)="refresh()">please try again.</span>
   </p>
 </div>
@@ -10,7 +10,7 @@
   <!-- <div *ngIf="(overAllData | json) != '{}';then showOverAllData;else noOverAllData"></div> -->
 
 
-  <div style="background-color: #99cccc; color:white" class="rounded p-4">
+  <div style="background-color: rgb(153, 204, 204,0.7); color:white" class="rounded p-4">
     <div>
 
     </div>
@@ -25,7 +25,7 @@
         <div class="dropdown-divider"></div>
       </h5>
       <h5 class="col-lg-4 text-center font-weight-bold">
-        Recovered: <br>{{overAllData.recovered | number}} 
+        Recovered: <br>{{overAllData.recovered | number}}
         <div class="dropdown-divider"></div>
       </h5>
     </div>
@@ -50,9 +50,9 @@
                 <small class="d-block">in Mild Condition</small>
                 <circle-progress class="mt-lg-2"
                   [percent]="((overAllData.active-overAllData.critical)/overAllData.active)*100 " [radius]="100"
-                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
-                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#99cccc'"
-                  [innerStrokeColor]="'#99cccc'" [animation]="true" [animationDuration]="300"></circle-progress>
+                  [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(153, 204, 204,0.7)'"
+                  [innerStrokeColor]="'rgb(153, 204, 204,0.2)'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
               <div class="dropdown-divider"></div>
             </div>
@@ -64,9 +64,9 @@
                 </span>
                 <small class="d-block">Serious or Critica</small>
                 <circle-progress class="mt-lg-2" [percent]="(overAllData.critical/overAllData.active)*100"
-                  [radius]="100" [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false"
-                  [responsive]="true" [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#dc3545'"
-                  [innerStrokeColor]="'#dc3545'" [animation]="true" [animationDuration]="300"></circle-progress>
+                  [radius]="100" [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false"
+                  [responsive]="true" [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(220, 53, 69,0.7)'"
+                  [innerStrokeColor]="'rgb(220, 53, 69,0.1)'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
               <div class="dropdown-divider"></div>
             </div>
@@ -89,11 +89,11 @@
                   <!-- <br>({{ (((overAllData.recovered)/(overAllData.cases - overAllData.active))*100).toFixed(1) }}%) -->
                 </span>
                 <small class="d-block">Recovered</small>
-                <circle-progress class="mt-lg-2" 
+                <circle-progress class="mt-lg-2"
                   [percent]="((overAllData.recovered)/(overAllData.cases - overAllData.active))*100" [radius]="100"
-                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
-                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#28a745'"
-                  [innerStrokeColor]="'#28a745'" [animation]="true" [animationDuration]="300"></circle-progress>
+                  [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(40, 167, 69,0.7)'"
+                  [innerStrokeColor]="'rgb(40, 167, 69,0.2)'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
               <div class="dropdown-divider"></div>
             </div>
@@ -105,9 +105,9 @@
                 <small class="d-block">Deaths</small>
                 <circle-progress class="mt-lg-2"
                   [percent]="((overAllData.deaths)/(overAllData.cases - overAllData.active))*100" [radius]="100"
-                  [space]="2" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
-                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
-                  [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
+                  [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
+                  [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(51, 51, 51,0.9)'"
+                  [innerStrokeColor]="'rgb(51, 51, 51,0.2)'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
               <div class="dropdown-divider"></div>
             </div>
@@ -130,11 +130,11 @@
                   <!-- ({{ ((overAllData.todayDeaths/overAllData.todayCases)*100).toFixed(1) }}%) -->
                 </span>
                 <small class="d-block">Deaths</small>
-                <circle-progress class="mt-lg-2 col-lg-7" style="margin-left:-8px"
-                  [percent]="(overAllData.todayDeaths/overAllData.todayCases)*100" [radius]="100" [space]="2"
+                <circle-progress class=" col-lg-7" style="margin-left:-8px"
+                  [percent]="(overAllData.todayDeaths/overAllData.todayCases)*100" [radius]="100" [space]="0"
                   [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
-                  [outerStrokeWidth]="4" [innerStrokeWidth]="2" [outerStrokeColor]="'#333333'"
-                  [innerStrokeColor]="'#af9b9b'" [animation]="true" [animationDuration]="300"></circle-progress>
+                  [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(51, 51, 51,0.7)'"
+                  [innerStrokeColor]="'rgb(51, 51, 51,0.2)'" [animation]="true" [animationDuration]="300"></circle-progress>
               </p>
               <div class="dropdown-divider"></div>
             </div>
@@ -146,11 +146,11 @@
     <!-- graphs part for all historical data -->
 
     <div class="text-dark  mt-2">
-      
+
       <div class="alert alert-danger" *ngIf="overAllHistoricalError">
         <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
-        <p class="d-inline-block ml-1"> 
-          Could not load some of the data! 
+        <p class="d-inline-block ml-1">
+          Could not load some of the data!
           <span class="alert-link span" (click)="refresh()">please try again.</span>
         </p>
       </div>
@@ -162,22 +162,25 @@
         <div class="card col-lg-12 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Cases since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
-            <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="LineChartOptions" [legend]="legend"
-              [chartType]="allCasesChartType" [colors]="allCasesChartColor" [plugins]='linerChartPlugins'></canvas>
+            <canvas baseChart [datasets]="allCasesData" [labels]="allCasesLabels" [options]="LineChartOptions"
+              [legend]="legend" [chartType]="allCasesChartType" [colors]="allCasesChartColor"
+              [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-6 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Recovered since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allRecoveredData" [labels]="allRecoveredLabels" [options]="LineChartOptions"
-              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor" [plugins]='linerChartPlugins'></canvas>
+              [legend]="legend" [chartType]="allRecoveredChartType" [colors]="allRecoveredChartColor"
+              [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
         <div class="card col-lg-6 graphsParent">
           <h5 class="card-header text-center" style="font-size: 14px;">Total Deaths since 16-March-2020</h5>
           <div class="card-body p-0 pt-1">
             <canvas baseChart [datasets]="allDeathsData" [labels]="allDeathsLabels" [options]="LineChartOptions"
-              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor" [plugins]='linerChartPlugins'></canvas>
+              [legend]="legend" [chartType]="allDeathsChartType" [colors]="allDeathsChartColor"
+              [plugins]='linerChartPlugins'></canvas>
           </div>
         </div>
       </div>

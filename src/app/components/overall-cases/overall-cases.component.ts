@@ -12,54 +12,54 @@ import * as pluginDataLabels from "chartjs-plugin-datalabels";
 export class OverallCasesComponent implements OnInit {
   overAllData: any = {};
   overAllHistoricalData: object = {};
-  overAllDataLoading:boolean = true;
-  overAllHistoricalDataLoading:boolean = true;
-  overAllError:boolean = false;
-  overAllHistoricalError:boolean = false;
+  overAllDataLoading: boolean = true;
+  overAllHistoricalDataLoading: boolean = true;
+  overAllError: boolean = false;
+  overAllHistoricalError: boolean = false;
 
   // All Cases historical
-  public allCasesData:Array<any>;
-  public allCasesLabels:Label[];
-  public allCasesChartType:String;
-  public allCasesChartColor:Color[];
+  public allCasesData: Array<any>;
+  public allCasesLabels: Label[];
+  public allCasesChartType: String;
+  public allCasesChartColor: Color[];
 
   // All Recovered historical
-  public allRecoveredData:Array<any>;
-  public allRecoveredLabels:Label[];
-  public allRecoveredChartType:String;
-  public allRecoveredChartColor:Color[];
+  public allRecoveredData: Array<any>;
+  public allRecoveredLabels: Label[];
+  public allRecoveredChartType: String;
+  public allRecoveredChartColor: Color[];
 
-   // All Deaths historical
-   public allDeathsData:Array<any>;
-   public allDeathsLabels:Label[];
-   public allDeathsChartType:String;
-   public allDeathsChartColor:Color[];
-   
-  constructor(private apiService:ManageApiService) { }
+  // All Deaths historical
+  public allDeathsData: Array<any>;
+  public allDeathsLabels: Label[];
+  public allDeathsChartType: String;
+  public allDeathsChartColor: Color[];
+
+  constructor(private apiService: ManageApiService) { }
 
   ngOnInit() {
     this.apiService.getOverAllData()
-    .subscribe(
-      data => {
-        this.overAllData = data
-        this.overAllDataLoading = false
-      },
-      error => {
-        this.overAllDataLoading = false
-        this.overAllError =true;
-      }
-    )
+      .subscribe(
+        data => {
+          this.overAllData = data
+          this.overAllDataLoading = false
+        },
+        error => {
+          this.overAllDataLoading = false
+          this.overAllError = true;
+        }
+      )
 
     this.apiService.getOverAllHistoricalData()
       .subscribe(
-        data =>{
+        data => {
           this.overAllHistoricalData = data;
           this.setAllCasesVisualization()
           this.setAllRecoveredCasesVisualization()
           this.setAllDeathCasesVisualization()
-          this.overAllHistoricalDataLoading = false;         
+          this.overAllHistoricalDataLoading = false;
         },
-        error=>{
+        error => {
           this.overAllHistoricalDataLoading = false;
           this.overAllHistoricalError = true;
         }
@@ -68,60 +68,66 @@ export class OverallCasesComponent implements OnInit {
   }
 
 
-  setAllCasesVisualization(){
+  setAllCasesVisualization() {
     this.allCasesLabels = Object.keys(this.overAllHistoricalData['cases'])
     this.allCasesData = [
-      {data:Object.values(this.overAllHistoricalData['cases']), label:'Total Corona Virus Cases'}
+      { data: Object.values(this.overAllHistoricalData['cases']), label: 'Total Corona Virus Cases', fill: false }
     ];
     this.allCasesChartType = 'line'
     this.allCasesChartColor = [
-      {backgroundColor:'rgb(153, 204, 204, 0.5)'},
+      {
+        borderColor: "rgb(153, 204, 204, 0.5)",
+        pointBorderColor: "rgb(153, 204, 204, 0.5)",
+        pointBackgroundColor: "rgb(153, 204, 204, 0.5)"
+      }
     ]
   }
 
-  setAllRecoveredCasesVisualization(){
-    let recovered = this.overAllHistoricalData['recovered']; 
+  setAllRecoveredCasesVisualization() {
+    let recovered = this.overAllHistoricalData['recovered'];
     this.allRecoveredData = [
-      {data:Object.values(recovered), label:"Total Corona Virus Recovered Cases"}
+      { data: Object.values(recovered), label: "Total Corona Virus Recovered Cases", fill: false }
     ];
     this.allRecoveredLabels = Object.keys(recovered)
     this.allRecoveredChartType = "line"
     this.allRecoveredChartColor = [
-      {backgroundColor:'rgb(40, 167, 69, 0.5)'}
+      {
+        borderColor: 'rgb(40, 167, 69, 0.5)',
+        pointBorderColor: 'rgb(40, 167, 69, 0.5)',
+        pointBackgroundColor: 'rgb(40, 167, 69, 0.5)'
+      }
     ]
   }
-  setAllDeathCasesVisualization(){
+  setAllDeathCasesVisualization() {
     let deaths = this.overAllHistoricalData['deaths'];
     this.allDeathsData = [
-      {data:Object.values(deaths), label:"Total Corona Virus Death Cases"}
+      { data: Object.values(deaths), label: "Total Corona Virus Death Cases", fill: false }
     ];
     this.allDeathsLabels = Object.keys(deaths)
     this.allDeathsChartType = "line"
     this.allDeathsChartColor = [
-      {backgroundColor:'rgb(220, 53, 69, 0.5)'}
+      {
+        borderColor: 'rgb(220, 53, 69, 0.5)',
+        pointBorderColor: 'rgb(220, 53, 69, 0.5)',
+        pointBackgroundColor: 'rgb(220, 53, 69, 0.5)'
+      }
     ]
   }
-  
 
-  // public data = [
-  //   // {data:[12,14,15,17],label:'Afghanistan Income'},
-  //   {data:[90,8,1200,20],label:'India Income'}
-  // ];
- 
   public LineChartOptions = {
     scaleShowVerticalLines: false,
     maintainAspectRatio: false,
     responsive: true,
-    plugins:{
+    plugins: {
       datalabels: {
         display: false
-      }, 
+      },
     }
   };
-  public legend=true;
+  public legend = true;
   public linerChartPlugins = [pluginDataLabels]
 
-  refresh(){
+  refresh() {
     this.ngOnInit()
     this.overAllError = false
     this.overAllDataLoading = true

@@ -12,7 +12,8 @@ import { ManageApiService } from 'src/app/services/manage-api.service';
 export class CountryInfoComponent implements OnInit {
   country: string = null;
   countryData: any = {};
-
+  allDataLoading:boolean = true
+  overAllError:boolean = false
   // active cases charts properties
   public activeData: ChartDataSets[];
   public activeLabels: Label[];
@@ -45,8 +46,11 @@ export class CountryInfoComponent implements OnInit {
           this.setActiveCasesVisualization()
           this.setClosedCasesVisualization()
           this.setTodayCasesVisualization()
+          this.allDataLoading = false
         },
         error => {
+          this.allDataLoading = false
+          this.overAllError = true
           console.log(error)
         }
       )
@@ -110,6 +114,15 @@ export class CountryInfoComponent implements OnInit {
     ];
     // set labels
     this.todayLabels = ["Mid / critical / recovered Cases", "Deaths Cases"];
+  }
+
+
+
+  
+  refresh() {
+    this.ngOnInit()
+    this.overAllError = false
+    this.allDataLoading = true
   }
 
 }

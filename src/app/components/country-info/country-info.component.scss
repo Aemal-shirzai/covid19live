@@ -22,12 +22,26 @@ td{
 }
 
 .flagImg{
-    width: 100px !important;   
+    width: 60px !important; 
+    height: 60px !important;  
+    border-radius: 50%;
+}
+
+#swichSpan{
+    cursor: pointer;
+    font-size: 12px;
+}
+.span{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 @media screen and(max-width:640px){
     .flagImg{
         float: none !important;   
+        display: block !important;
+        margin: 0 auto !important;
+        
     }
 }
 
