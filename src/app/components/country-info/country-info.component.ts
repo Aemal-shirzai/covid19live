@@ -14,6 +14,7 @@ export class CountryInfoComponent implements OnInit {
   countryData: any = {};
   allDataLoading:boolean = true
   overAllError:boolean = false
+  notFoundError:boolean = false
   // active cases charts properties
   public activeData: ChartDataSets[];
   public activeLabels: Label[];
@@ -50,8 +51,11 @@ export class CountryInfoComponent implements OnInit {
         },
         error => {
           this.allDataLoading = false
-          this.overAllError = true
-          console.log(error)
+          if(error.status === 404){
+            this.notFoundError = true;
+          }else{
+            this.overAllError = true
+          }
         }
       )
   }

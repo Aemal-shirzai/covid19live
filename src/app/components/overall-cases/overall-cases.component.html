@@ -47,7 +47,7 @@
                   <span class="text-primary">{{(overAllData.active-overAllData.critical) | number}}</span>
                   <!-- <br>({{ (((overAllData.active-overAllData.critical)/overAllData.active)*100).toFixed(1) }}%)  -->
                 </span>
-                <small class="d-block">in Mild Condition</small>
+                <small class="d-block">Normal Condition</small>
                 <circle-progress class="mt-lg-2"
                   [percent]="((overAllData.active-overAllData.critical)/overAllData.active)*100 " [radius]="100"
                   [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false" [responsive]="true"
@@ -62,7 +62,7 @@
                   <span class="text-danger">{{overAllData.critical | number}}</span>
                   <!-- <br> ({{ ((overAllData.critical/overAllData.active)*100).toFixed(1) }}%)  -->
                 </span>
-                <small class="d-block">Serious or Critica</small>
+                <small class="d-block">Serious/Critical Condition</small>
                 <circle-progress class="mt-lg-2" [percent]="(overAllData.critical/overAllData.active)*100"
                   [radius]="100" [space]="0" [titleFontSize]="40" [unitsFontSize]="40" [showSubtitle]="false"
                   [responsive]="true" [outerStrokeWidth]="3" [innerStrokeWidth]="2" [outerStrokeColor]="'rgb(220, 53, 69,0.7)'"

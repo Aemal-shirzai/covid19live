@@ -48,7 +48,7 @@ export class AllCountriesComponent implements OnInit {
 
   countryDetails(country){
     event.preventDefault()
-    this.router.navigate([`${country}`],{relativeTo:this.route})
+    this.router.navigate([`countries/${country}`],{relativeTo:this.route})
   }
   
   refresh(){

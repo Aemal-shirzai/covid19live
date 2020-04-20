@@ -12,9 +12,10 @@ import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
 import { AppRoutingModule, AllComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSortModule } from "@angular/material/sort";
-import { CountryGraphsComponent } from './components/country-graphs/country-graphs.component';
+
 
 import { DatePipe } from '@angular/common';
+
 
 
 
@@ -22,8 +23,6 @@ import { DatePipe } from '@angular/common';
   declarations: [
     AppComponent,
     AllComponents,
-    CountryGraphsComponent,
-  
   ],
   imports: [
     BrowserModule,

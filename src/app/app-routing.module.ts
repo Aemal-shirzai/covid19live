@@ -9,10 +9,13 @@ import { CountryInfoComponent } from './components/country-info/country-info.com
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
+import { CountryGraphsComponent } from './components/country-graphs/country-graphs.component';
+import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  {path:':country',component:CountryInfoComponent},
+  {path:'countries/:country',component:CountryInfoComponent},
+  {path:'map',component:MapComponent},
   {path:'**',component:NotFoundComponent}
 ];
 
@@ -27,6 +30,7 @@ export const AllComponents =[
   AllCountriesComponent,
   CountryInfoComponent,
   NotFoundComponent,
-  HomeComponent
-
+  HomeComponent,
+  CountryGraphsComponent,
+  MapComponent
 ];

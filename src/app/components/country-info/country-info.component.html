@@ -1,6 +1,6 @@
 <div class="p-sm-5 p-lg-5">
     <button class="btn btn-sm btn-info p-1" routerLink="">Go Back</button>
-    <h3 class="text-center p-3">Covid-19 Live Statistics {{country}}</h3>
+    <h3 class="text-center p-3">Covid-19 Live Statistics {{countryData.country}}</h3>
     <app-loading *ngIf="allDataLoading"></app-loading>
     <div class="alert alert-danger text-center" *ngIf="overAllError">
         <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
@@ -9,14 +9,21 @@
           <span class="alert-link span" (click)="refresh()">please try again.</span>
         </p>
     </div>
-    <div class="bg-white py-lg-4 pl-lg-2 pr-lg-2 rounded">
+    <div class="alert alert-danger text-center" *ngIf="notFoundError">
+        <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+        <p class="d-inline-block ml-1">
+          Invalid URL, the country is not in the list!
+          <span class="alert-link span" routerLink="">Back to country list.</span>
+        </p>
+    </div>
+    <div class="bg-white py-lg-4 pl-lg-2 pr-lg-2 rounded" *ngIf="!overAllError && !allDataLoading && countryData && !notFoundError">
         <div class="card" style="border: 0px;">
             <div class="card-header text-center">
                 <div class="">
                     <img src="{{countryData.countryInfo?.flag}}" loading="lazy" alt="flag"
                         class="float-left img-fluid d-inline-block flagImg">
                     <h3 class="d-inline-block">
-                        {{country}} Cases
+                        {{countryData.country}} Cases
                         <small class="text-muted updateDate d-block">
                             (Last Update: {{ countryData.updated | date:'MMM d, y, h:mm:ss a' }})
                         </small>
@@ -143,6 +150,6 @@
         </div>
 
         <!-- countries grapsh for historical data -->
-        <app-country-graphs [country]="country"></app-country-graphs>
+        <app-country-graphs *ngIf="countryData.country" [country]="countryData.country"></app-country-graphs>
     </div>
 </div>

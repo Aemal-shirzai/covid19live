@@ -120,15 +120,16 @@ export class CountryGraphsComponent implements OnInit {
   setRecoveredCasesChartData() {
     let recoveredCases = this.countryHistoricalData['timeline'].recovered;
     this.totalRecoveredCasesData = [
-      { data: Object.values(recoveredCases), label: "Total Death Cases", fill: false }
+      { data: Object.values(recoveredCases), label: "Total Recovered Cases", fill: false }
     ];
     for (var key in Object.keys(recoveredCases)) {
       this.totalRecoveredCasesLabel.push(this.transformDate(Object.keys(recoveredCases)[key]))
     }
-    this.totalRecoveredCasesType = "bar";
+    this.totalRecoveredCasesType = "line";
     this.totalRecoveredCasesColors = [
       {
         backgroundColor: "rgb(40, 167, 69,0.2)",
+        borderColor:"rgb(40, 167, 69,0.2)",
         hoverBackgroundColor: "rgb(40, 167, 69,0.7)",
       }
     ];

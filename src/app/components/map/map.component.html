@@ -1,0 +1,9 @@
+<div class="alert alert-danger text-center" *ngIf="error">
+    <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+    <p class="d-inline-block ml-1">
+      Something Went Wrong.
+      <span class="alert-link span" (click)="refresh()">please try again.</span>
+    </p>
+</div>
+<app-loading *ngIf="loading"></app-loading>
+<div id="map"></div>

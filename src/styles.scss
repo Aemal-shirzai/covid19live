@@ -5,7 +5,6 @@
 body{
     background-color: #f2f2f2 !important;
     color: #333333;
-    padding: 70px 14px;
 }
 .searchBox{
   height:50px !important; 
@@ -21,6 +20,33 @@ body{
   margin-top: 12px !important;
   margin-bottom: 4px !important;
 }
+
+.marker{
+  background-color: red;
+  opacity: 0.6;
+  width:20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: .3s;
+  &:hover {
+    opacity:1;
+  }
+}
+
+.mapboxgl-popup {
+  min-width: 260px !important;
+  max-width: 400px !important;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  h1{
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .dropdown-divider{
+    margin:0px !important;
+  }
+}
+
 
 @media screen and (max-width:640px){
   .container{
