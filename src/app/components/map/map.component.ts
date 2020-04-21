@@ -22,10 +22,10 @@ export class MapComponent implements OnInit {
   geojson;
   loading: boolean = true
   error: boolean = false
-
+  // search
+  searchKey:string = "";
   ngOnInit() {
     var map = this.map;
-
     // load All data
     this.apiService.getAllCountriesData().subscribe(
       data => {
@@ -122,9 +122,9 @@ export class MapComponent implements OnInit {
 
     // get the access token for the mapbox
     Object.getOwnPropertyDescriptor(mapboxgl, "accessToken").set(environment.mapboxKey);
-    map = new mapboxgl.Map({
+    this.map = map = new mapboxgl.Map({
       container: "map",
-      style: 'mapbox://styles/mapbox/outdoors-v11',
+      style: 'mapbox://styles/mapbox/streets-v11',
       zoom: 3,
       center: [0, 0],
     });
@@ -162,6 +162,14 @@ export class MapComponent implements OnInit {
     this.loading = true
   }
 
+  search() {
+    let cord = this.searchKey.split(",");
+    this.map.flyTo({
+      center: [parseInt(cord[0]),parseInt(cord[1])],
+      zoom:5,
+      essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
 
 
 }

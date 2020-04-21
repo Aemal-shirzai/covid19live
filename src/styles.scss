@@ -5,6 +5,7 @@
 body{
     background-color: #f2f2f2 !important;
     color: #333333;
+    font-family: monospace !important;
 }
 .searchBox{
   height:50px !important; 
@@ -21,15 +22,19 @@ body{
   margin-bottom: 4px !important;
 }
 
+
 .marker{
-  background-color: red;
-  opacity: 0.6;
+  background-color: #d9534f;
+  opacity: 0.8;
   width:20px;
   height: 20px;
   border-radius: 50%;
   cursor: pointer;
   transition: .3s;
   &:hover {
+    background-color: red;
+    width: 25px;
+    height: 25px;
     opacity:1;
   }
 }
@@ -47,6 +52,9 @@ body{
   }
 }
 
+.mapboxgl-ctrl-top-right{
+  top:35px !important;
+}
 
 @media screen and (max-width:640px){
   .container{

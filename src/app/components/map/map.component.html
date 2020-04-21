@@ -1,9 +1,20 @@
 <div class="alert alert-danger text-center" *ngIf="error">
-    <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
-    <p class="d-inline-block ml-1">
-      Something Went Wrong.
-      <span class="alert-link span" (click)="refresh()">please try again.</span>
-    </p>
+  <div class="alert-heading font-weight-bold d-inline-block">OOPS!!</div>
+  <p class="d-inline-block ml-1">
+    Something Went Wrong.
+    <span class="alert-link span" (click)="refresh()">please try again.</span>
+  </p>
 </div>
 <app-loading *ngIf="loading"></app-loading>
-<div id="map"></div>
+<div id="map">
+  <div id="searchDiv"  *ngIf="!loading">
+    <select class="form-control"  (change)="search()" [(ngModel)]="searchKey" >
+      <option value="" disabled selected>Search Country ...</option>
+      <option value="0,0" selected >Center Of Earth</option>
+      <option *ngFor="let country of data" class="text-muted" value="{{ country['countryInfo'].long}},{{country['countryInfo'].lat}}">
+        {{country.country}}
+      </option>
+    </select>
+    <span class="fa fa-search"></span>
+  </div>
+</div>
