@@ -11,11 +11,13 @@ import { NotFoundComponent } from './components/errors/not-found/not-found.compo
 import { HomeComponent } from './components/home/home.component';
 import { CountryGraphsComponent } from './components/country-graphs/country-graphs.component';
 import { MapComponent } from './components/map/map.component';
+import { CompareComponent } from './components/compare/compare.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'countries/:country',component:CountryInfoComponent},
   {path:'map',component:MapComponent},
+  {path:'compare',component:CompareComponent},
   {path:'**',component:NotFoundComponent}
 ];
 
@@ -32,5 +34,6 @@ export const AllComponents =[
   NotFoundComponent,
   HomeComponent,
   CountryGraphsComponent,
-  MapComponent
+  MapComponent,
+  CompareComponent
 ];

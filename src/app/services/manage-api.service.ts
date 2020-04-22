@@ -50,6 +50,14 @@ export class ManageApiService {
       )
   }
 
+  //get historical data for all coutries
+  getCountriesHistoricalData() {
+    return this.http.get(`${this.baseUrl}/v2/historical`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

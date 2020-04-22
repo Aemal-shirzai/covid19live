@@ -58,11 +58,11 @@ body{
 
 @media screen and (max-width:640px){
   .container{
-    padding: 0 !important;
+    padding: 0px !important;
   }
 
   .card{
-    padding:0px !important;
+    // padding:0px !important;
     border-left:none !important;
     border-right:none !important;
   }
