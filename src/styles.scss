@@ -24,17 +24,21 @@ body{
 
 
 .marker{
-  background-color: #d9534f;
-  opacity: 0.8;
+  // background-color: #d9534f;
+  color: #d9534f;
+  opacity: 0.9;
   width:20px;
   height: 20px;
+  font-size: 20px;
+  // color:red;
   border-radius: 50%;
   cursor: pointer;
   transition: .3s;
   &:hover {
-    background-color: red;
-    width: 25px;
-    height: 25px;
+    color: red;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
     opacity:1;
   }
 }
@@ -138,3 +142,10 @@ body{
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.modal-footer{
+  .btn-secondary {
+    background-color: #3fbbc0 !important;
+    border-color: #3fbbc0 !important;
+    color:white !important;
+  }
+}

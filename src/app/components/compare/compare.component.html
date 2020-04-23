@@ -10,7 +10,7 @@
     <h4 class="text-center p-4">Compare covid-19 statistics of countries</h4>
     <div class="dropdown-divider"></div>
     <div class="row box ">
-        <div class="col-lg-4 field">
+        <div class="col-lg-5 field">
             <select class="form-control" [disabled]="loading || error" (change)="selectCountry('searchKeyOne')"
                 [(ngModel)]="searchKeyOne">
                 <option value="" disabled selected>Select Country...</option>
@@ -20,7 +20,7 @@
                 </option>
             </select>
         </div>
-        <div class="col-lg-4 field">
+        <div class="col-lg-5 field">
             <select class="form-control" [disabled]="loading || error" (change)="selectCountry('searchKeyTwo')"
                 [(ngModel)]="searchKeyTwo">
                 <option disabled selected value="">Select Country...</option>

@@ -12,12 +12,14 @@ import { HomeComponent } from './components/home/home.component';
 import { CountryGraphsComponent } from './components/country-graphs/country-graphs.component';
 import { MapComponent } from './components/map/map.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'countries/:country',component:CountryInfoComponent},
   {path:'map',component:MapComponent},
   {path:'compare',component:CompareComponent},
+  {path:'recommendations',component:RecommendationsComponent} ,
   {path:'**',component:NotFoundComponent}
 ];
 
@@ -35,5 +37,6 @@ export const AllComponents =[
   HomeComponent,
   CountryGraphsComponent,
   MapComponent,
-  CompareComponent
+  CompareComponent,
+  RecommendationsComponent
 ];

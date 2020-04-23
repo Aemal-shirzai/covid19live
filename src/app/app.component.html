@@ -24,8 +24,13 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link">
-              Recommandations
+            <a class="nav-link" routerLink="recommendations" routerLinkActive="active">
+              Recommendations & FAQs
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="modal" data-target="#soucesModal">
+              Resources
             </a>
           </li>
         </ul>
@@ -40,15 +45,44 @@
   <p><Strong>Made by Aemal shirzai</Strong></p>
   <div>
     <a href="https://www.facebook.com/aemal.shirzai" class="p-1" target="_blank"> 
-      <i class="fa fa-facebook" aria-hidden="true"></i>
+      <i class="fab fa-facebook" aria-hidden="true"></i>
       Facebook
     </a>
     <a href="https://www.github.com/aemal-shirzai" class="p-1" target="_blank">
-      <i class="fa fa-github" aria-hidden="true"></i>
+      <i class="fab fa-github" aria-hidden="true"></i>
       Github
     </a>
     <a href="mailto:aemalshirzai2016@gmai.com" class="p-1 d-block">
       aemalshirzai2016@gmail.com
     </a>
   </div>
+</div>
+
+
+<!-- Sources modal -->
+<div class="modal fade" id="soucesModal" tabindex="-1" role="dialog" aria-labelledby="soucesModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="soucesModalTitle">
+                    Resources Used In Building This Web Application
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>World Health Organization (WHO):</strong>
+                <p><a href="https://www.who.int" target="_blank">https://www.who.int</a></p>
+                <strong>Worldometer:</strong>
+                <p><a href="https://www.worldometers.info/" target="_blank">https://www.worldometers.info/</a></p>
+                <strong>Novel COVID:</strong>
+                <p><a href="https://corona.lmao.ninja/" target="_blank">https://corona.lmao.ninja/</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

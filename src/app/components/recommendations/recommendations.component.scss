@@ -1,0 +1,15 @@
+.recomandDiv {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.15) !important; 
+    margin:0 auto;
+    cursor: pointer !important;
+    transition: .5s;
+    &:hover{
+        box-shadow: 0 0 20px 4px rgba(0,0,0,.15) !important; 
+    }
+}
+@media screen and (max-width:640px){
+    .row {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+}

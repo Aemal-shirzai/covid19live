@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
         this.geojson.features.forEach(function (marker) {
           // create a DOM element for the marker
           var el = document.createElement('div');
-          el.className = 'marker';
+          el.className = 'marker fas fa-virus';
           var popup = new mapboxgl.Popup({ offset: 10 })
             .setLngLat([marker['countryInfo'].long, marker['countryInfo'].lat])
             .setHTML(

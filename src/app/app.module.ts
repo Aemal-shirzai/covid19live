@@ -12,14 +12,15 @@ import { AppRoutingModule, AllComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSortModule } from "@angular/material/sort";
 
-
 import { DatePipe } from '@angular/common';
+import { ModalsComponent } from './components/modals/modals.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AllComponents,
+    ModalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +30,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     NgCircleProgressModule.forRoot(),
     ChartsModule,
-    MatSortModule,
+    MatSortModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
