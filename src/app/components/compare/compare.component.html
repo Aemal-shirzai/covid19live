@@ -37,12 +37,12 @@
     </div>
     <div class="dropdown-divider" style="margin-bottom: 14px;"></div>
     <!-- Charts  -->
-
+    <div *ngIf="linearChartCountryOneData && linearChartCountryTwoData">
     <!-- Bar chart for total cases -->
     <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalCasesData">
-        <h5 class="text-center mb-2">Total Cases Comparison</h5>
+        <h5 class="text-center mb-2">Total Countries' Positive Cases Comparison Based On World Total Cases</h5>
         <div>
-            <canvas baseChart [datasets]="totalCasesData" [labels]="totalCasesLabels" [options]="barChartOptions"
+            <canvas baseChart [datasets]="totalCasesData" [labels]="totalCasesLabels" [options]="barChartTotalCasesOptions"
                 [legend]="chartsLegend" [chartType]="barChartType" [colors]="totalCasesColors" [plugins]="chartsPlugin">
             </canvas>
         </div>
@@ -61,7 +61,7 @@
     </div>
     <!-- Bar Chart for total deaths -->
     <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalDeathsData">
-        <h5 class="text-center mb-2">Total Deaths Comparison</h5>
+        <h5 class="text-center mb-2">Total Countries' Deaths Cases Comparison Based On Countries' Total Cases</h5>
         <div>
             <canvas baseChart [datasets]="totalDeathsData" [labels]="totalDeathsLabels" [options]="barChartOptions"
                 [legend]="chartsLegend" [chartType]="barChartType" [colors]="totalDeathsColors"
@@ -81,7 +81,7 @@
     </div>
     <!-- Bar Chart for total recovered -->
     <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalRecoveredData">
-        <h5 class="text-center mb-2">Total Recovered Comparison</h5>
+        <h5 class="text-center mb-2">Total Countries' Recovered Cases Comparison Based On Countries' Total Cases</h5>
         <div>
             <canvas baseChart [datasets]="totalRecoveredData" [labels]="totalRecoveredLabels"
                 [options]="barChartOptions" [legend]="chartsLegend" [chartType]="barChartType"
@@ -99,34 +99,45 @@
             </canvas>
         </div>
     </div>
-    <!-- Bar Chart for New cases and new deaths recovered -->
-    <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalNewsCasesDeathsData">
-        <h5 class="text-center mb-2">Total New/Today Cases & New/Today Deaths Comparison</h5>
+    <!-- Bar Chart for New cases and new deaths  -->
+    <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalNewCasesData">
+        <h5 class="text-center mb-2">Total Countries' New Positive Cases Comparison Based On Worlds New Positive Cases</h5>
         <div>
-            <canvas baseChart [datasets]="totalNewsCasesDeathsData" [labels]="totalNewsCasesDeathsLabels"
-                [options]="barChartOptions" [legend]="chartsLegend" [chartType]="barChartType"
-                [colors]="totalNewsCasesDeathsColors" [plugins]="chartsPlugin">
+            <canvas baseChart [datasets]="totalNewCasesData" [labels]="totalNewCasesLabels"
+                [options]="barChartTodayCasesOptions" [legend]="chartsLegend" [chartType]="barChartType"
+                [colors]="totalNewCasesColors" [plugins]="chartsPlugin">
+            </canvas>
+        </div>
+    </div>
+    <!-- Bar Chart for  new deaths  -->
+    <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalNewDeathsData">
+        <h5 class="text-center mb-2">Total Countris' New Death Cases Comparison Based On Countries' Total New Positive Cases</h5>
+        <div>
+            <canvas baseChart [datasets]="totalNewDeathsData" [labels]="totalNewDeathsLabels"
+                [options]="barChartTodayDeathsOptions" [legend]="chartsLegend" [chartType]="barChartType"
+                [colors]="totalNewDeathsColors" [plugins]="chartsPlugin">
             </canvas>
         </div>
     </div>
     <!-- Bar Chart for New cases and new deaths recovered -->
     <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalCasesandDeathsPerMillionData">
-        <h5 class="text-center mb-2">Total Cases & Deaths Per One Million Comparison</h5>
+        <h5 class="text-center mb-2">Total Positive Cases & Deaths Comparison Per Countries' One Million Population</h5>
         <div>
             <canvas baseChart [datasets]="totalCasesandDeathsPerMillionData" [labels]="totalCasesandDeathsPerMillionLabels"
-                [options]="barChartOptions" [legend]="chartsLegend" [chartType]="barChartType"
+                [options]="barChartTotalCasesAndDeathsMillionOptionsAndTests" [legend]="chartsLegend" [chartType]="barChartType"
                 [colors]="totalCasesandDeathsPerMillionColors" [plugins]="chartsPlugin">
             </canvas>
         </div>
     </div>
-    <!-- Bar Chart for New cases and new deaths recovered -->
+    <!-- Bar Chart for tests per one million -->
     <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalTestsAndPerMillionData">
-        <h5 class="text-center mb-2">Total Tests & Tests Per One Million Comparison</h5>
+        <h5 class="text-center mb-2">Total Countries' Tests Comparison Per Countries' One Million Population</h5>
         <div>
             <canvas baseChart [datasets]="totalTestsAndPerMillionData" [labels]="totalTestsAndPerMillionLabels"
-                [options]="barChartOptions" [legend]="chartsLegend" [chartType]="barChartType"
+                [options]="barChartTotalCasesAndDeathsMillionOptionsAndTests" [legend]="chartsLegend" [chartType]="barChartType"
                 [colors]="totalTestsAndPerMillionColors" [plugins]="chartsPlugin">
             </canvas>
         </div>
+    </div>
     </div>
 </div>

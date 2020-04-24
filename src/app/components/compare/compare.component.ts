@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 export class CompareComponent implements OnInit {
   data: any = [];
   historicalData: any = [];
+  worldData: any = [];
   error: boolean = false;
   loading: boolean = true;
   // searching
@@ -21,6 +22,8 @@ export class CompareComponent implements OnInit {
   searchKeyOne: string = ""
   searchKeyTwoStatus: boolean = false
   searchKeyTwo: string = ""
+  totalCountryOneCases;
+  totalCountryTwoCases;
   comparing: boolean = false
   barChartCountryOneData;
   barChartCountryTwoData;
@@ -58,10 +61,15 @@ export class CompareComponent implements OnInit {
   public totalRecoveredHistoricalLabels: Label[] = [];
   public totalRecoveredHistoricalColors: Color[];
 
-  // bar chart total new cases and deaths comparing propertiess
-  public totalNewsCasesDeathsData: Array<any>;
-  public totalNewsCasesDeathsLabels: Label[] = [];
-  public totalNewsCasesDeathsColors: Color[];
+  // bar chart total new cases comparing propertiess
+  public totalNewCasesData: Array<any>;
+  public totalNewCasesLabels: Label[] = [];
+  public totalNewCasesColors: Color[];
+
+  // bar chart total  deaths comparing propertiess
+  public totalNewDeathsData: Array<any>;
+  public totalNewDeathsLabels: Label[] = [];
+  public totalNewDeathsColors: Color[];
 
   // bar chart total new cases and deaths comparing propertiess
   public totalTestsAndPerMillionData: Array<any>;
@@ -95,9 +103,23 @@ export class CompareComponent implements OnInit {
     this.apiService.getCountriesHistoricalData().subscribe
       (
         data => {
+          this.loading = false
           this.historicalData = data
         },
         error => {
+          this.loading = false
+          this.error = true
+        }
+      )
+
+    this.apiService.getOverAllData().subscribe
+      (
+        data => {
+          this.loading = false
+          this.worldData = data
+        },
+        error => {
+          this.loading = false
           this.error = true
         }
       )
@@ -134,81 +156,62 @@ export class CompareComponent implements OnInit {
         this.barChartCountryTwoData = this.data[key]
       }
     }
-    // load all historical data into a variable Note: the null provice mean to load all data not for a specific province
-    for (var key in this.historicalData) {
-      if (this.historicalData[key].country === this.searchKeyOne && this.historicalData[key].province === null) {
-        this.linearChartCountryOneData = this.historicalData[key]
-      }
-      if (this.historicalData[key].country === this.searchKeyTwo && this.historicalData[key].province === null) {
-        this.linearChartCountryTwoData = this.historicalData[key]
-      }
-    }
-    // Call all the functions to draw chart which are created below
-    this.setTotalCasesData()
-    this.setTotalCasesHistoricalData()
-    this.setTotalDeathsData()
-    this.setTotalDeathsHistoricalData()
-    this.setTotalRecoveredData()
-    this.setTotalRecoveredHistoricalData()
-    this.setTotalNewsCasesDeathsData()
-    this.setTotalTestandTestPerMillionData()
-    this.setTotalCasesandDeathsPerMillionData()
 
-    this.comparing = false
-    event.target.innerHTML = "compare"
+    this.apiService.getCountryHistoricalData(this.searchKeyOne).subscribe
+      (
+        data => {
+          this.linearChartCountryOneData = data
+          this.apiService.getCountryHistoricalData(this.searchKeyTwo).subscribe
+          (
+            data => {
+              this.linearChartCountryTwoData = data
+              this.setTotalCasesData()
+              this.setTotalCasesHistoricalData()
+              this.setTotalDeathsData()
+              this.setTotalDeathsHistoricalData()
+              this.setTotalRecoveredData()
+              this.setTotalRecoveredHistoricalData()
+              this.setTotalNewCasesData()
+              this.setTotalNewDeathsData()
+              this.setTotalTestandTestPerMillionData()
+              this.setTotalCasesandDeathsPerMillionData()
+              
+              this.comparing = false
+              event.target.innerHTML = "compare"
+            },
+            error => {
+              this.comparing = false
+              event.target.innerHTML = "compare"
+              this.error = true;
+            }
+          )
+        },
+        error => {
+          this.comparing = false
+          event.target.innerHTML = "compare"
+          this.error = true;
+        }
+      )
+
+      
+  
   }
-
-  // properties for bar charts only
-  public barChartType = "bar";
-  public barChartOptions = {
-    legend: {
-      position: "bottom"
-    },
-    scaleShowVerticalLines: false,
-    scaleShowDrawborder: false,
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      datalabels: {
-        // anchor:"end",
-        clamp: true,
-        font: {
-          weight: 'bold',
-          size: 14,
-        },
-        formatter: (value, ctx) => {
-          return this.numberWithCommas(value)
-        },
-      },
-    },
-  };
-  // properties for linear charts only
-  public linearChartType = "line";
-  public linearChartOptions = {
-    legend: {
-      position: "bottom"
-    },
-    scaleShowVerticalLines: false,
-    scaleShowDrawborder: false,
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      datalabels: {
-        display: false
-      },
-    },
-  };
-  // Properties for all charts
-  public chartsPlugin = [pluginDataLabels];
-  public chartsLegend = "true";
 
   // set total cases data for bar chart
   setTotalCasesData() {
     this.totalCasesData = [
-      { data: [this.barChartCountryOneData.cases], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.cases], "label": this.searchKeyTwo },
+      {
+        data: [
+          ((this.barChartCountryOneData.cases / this.worldData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.cases)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.cases / this.worldData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.cases)})`
+      },
     ]
-    this.totalCasesLabels = ["Total Cases"]
+    this.totalCasesLabels = ["Total Positive Cases In countries (%)"]
     this.totalCasesColors = [
       { backgroundColor: "rgb(153, 204, 204, 0.5)", hoverBackgroundColor: "rgb(153, 204, 204, 0.9)" },
       { backgroundColor: 'rgb(40, 167, 69, 0.5)', hoverBackgroundColor: 'rgb(40, 167, 69, 0.9)', },
@@ -235,10 +238,18 @@ export class CompareComponent implements OnInit {
   //set total deaths for bar chart
   setTotalDeathsData() {
     this.totalDeathsData = [
-      { data: [this.barChartCountryOneData.deaths], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.deaths], "label": this.searchKeyTwo },
+      {
+        data: [
+          ((this.barChartCountryOneData.deaths / this.barChartCountryOneData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.deaths)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.deaths / this.barChartCountryTwoData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.deaths)})`
+      },
     ]
-    this.totalDeathsLabels = ["Total Deaths"]
+    this.totalDeathsLabels = ["Total Deaths In Countires (%)"]
     this.totalDeathsColors = [
       { backgroundColor: "rgb(220, 53, 69, 0.3)" }, { backgroundColor: 'rgb(255,69,0,0.5)' },
     ];
@@ -263,10 +274,18 @@ export class CompareComponent implements OnInit {
   //set total deaths for bar chart
   setTotalRecoveredData() {
     this.totalRecoveredData = [
-      { data: [this.barChartCountryOneData.recovered], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.recovered], "label": this.searchKeyTwo },
+      {
+        data: [
+          ((this.barChartCountryOneData.recovered / this.barChartCountryOneData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.recovered)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.recovered / this.barChartCountryTwoData.cases) * 100).toFixed(4)],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.recovered)})`
+      },
     ]
-    this.totalRecoveredLabels = ["Total Deaths"]
+    this.totalRecoveredLabels = ["Total Recovered In Countries (%)"]
     this.totalRecoveredColors = [
       { backgroundColor: "rgb(153, 204, 204, 0.5)", hoverBackgroundColor: "rgb(153, 204, 204, 0.9)" },
       { backgroundColor: 'rgb(40, 167, 69, 0.5)', hoverBackgroundColor: 'rgb(40, 167, 69, 0.9)', },
@@ -291,41 +310,93 @@ export class CompareComponent implements OnInit {
   }
 
   //set total deaths for bar chart
-  setTotalNewsCasesDeathsData() {
-    this.totalNewsCasesDeathsData = [
-      { data: [this.barChartCountryOneData.todayCases, this.barChartCountryOneData.todayDeaths], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.todayCases, this.barChartCountryTwoData.todayDeaths], "label": this.searchKeyTwo },
+  setTotalNewCasesData() {
+    this.totalNewCasesData = [
+      {
+        data: [
+          ((this.barChartCountryOneData.todayCases / this.worldData.todayCases) * 100).toFixed(4)],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.todayCases)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.todayCases / this.worldData.todayCases) * 100).toFixed(4)],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.todayCases)})`
+      },
     ]
-    this.totalNewsCasesDeathsLabels = ["Today Cases", "Today Deaths"]
-    this.totalNewsCasesDeathsColors = [
-      { backgroundColor: "rgb(153, 204, 204, 0.5)", hoverBackgroundColor: "rgb(153, 204, 204, 0.9)" },
-      { backgroundColor: 'rgb(40, 167, 69, 0.5)', hoverBackgroundColor: 'rgb(40, 167, 69, 0.9)', },
+    this.totalNewCasesLabels = ["Total New/Today Positive Cases In Countries(%)"]
+    this.totalNewCasesColors = [
+      { backgroundColor: "rgb(153, 204, 204, 0.5)" },
+      { backgroundColor: 'rgb(40, 167, 69, 0.5)' },
+    ];
+
+  }
+  //set total deaths for bar chart
+  setTotalNewDeathsData() {
+    this.totalNewDeathsData = [
+      {
+        data: [
+          ((this.barChartCountryOneData.todayDeaths / this.barChartCountryOneData.todayCases) * 100).toFixed(4)],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.todayDeaths)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.todayDeaths / this.barChartCountryTwoData.todayCases) * 100).toFixed(4)],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.todayDeaths)})`
+      },
+    ]
+    this.totalNewDeathsLabels = ["Total New/Today Death Cases In Countries (%)"]
+    this.totalNewDeathsColors = [
+      { backgroundColor: "rgb(153, 204, 204, 0.5)" },
+      { backgroundColor: 'rgb(40, 167, 69, 0.5)' },
     ];
   }
 
-  //set total deaths for bar chart
-  setTotalTestandTestPerMillionData() {
-    this.totalTestsAndPerMillionData = [
-      { data: [this.barChartCountryOneData.tests, this.barChartCountryOneData.testsPerOneMillion], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.tests, this.barChartCountryTwoData.testsPerOneMillion], "label": this.searchKeyTwo },
-    ]
-    this.totalTestsAndPerMillionLabels = ["Total Tests", "Test Per One Million"]
-    this.totalTestsAndPerMillionColors = [
-      { backgroundColor: "rgb(153, 204, 204, 0.5)", hoverBackgroundColor: "rgb(153, 204, 204, 0.9)" },
-      { backgroundColor: 'rgb(40, 167, 69, 0.5)', hoverBackgroundColor: 'rgb(40, 167, 69, 0.9)', },
-    ];
-  }
 
   //set total caces and deaths per on million for bar chart
   setTotalCasesandDeathsPerMillionData() {
     this.totalCasesandDeathsPerMillionData = [
-      { data: [this.barChartCountryOneData.casesPerOneMillion, this.barChartCountryOneData.deathsPerOneMillion], "label": this.searchKeyOne },
-      { data: [this.barChartCountryTwoData.casesPerOneMillion, this.barChartCountryTwoData.deathsPerOneMillion], "label": this.searchKeyTwo },
+      {
+        data: [
+          ((this.barChartCountryOneData.casesPerOneMillion / 1000000) * 100).toFixed(4),
+          ((this.barChartCountryOneData.deathsPerOneMillion / 1000000) * 100).toFixed(4)
+        ],
+        "label": this.searchKeyOne
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.casesPerOneMillion / 1000000) * 100).toFixed(4),
+          ((this.barChartCountryTwoData.deathsPerOneMillion / 1000000) * 100).toFixed(4)
+        ],
+        "label": this.searchKeyTwo
+      },
     ]
-    this.totalCasesandDeathsPerMillionLabels = ["Cases/One Million", "Deaths/One Million"]
+    this.totalCasesandDeathsPerMillionLabels = ["Cases Per One Million (%)", "Deaths Per One Million (%)"]
     this.totalCasesandDeathsPerMillionColors = [
       { backgroundColor: "rgb(153, 204, 204, 0.5)", hoverBackgroundColor: "rgb(153, 204, 204, 0.9)" },
       { backgroundColor: 'rgb(40, 167, 69, 0.5)', hoverBackgroundColor: 'rgb(40, 167, 69, 0.9)', },
+    ];
+  }
+
+  //set total tests nad deaths per one million
+  setTotalTestandTestPerMillionData() {
+    this.totalTestsAndPerMillionData = [
+      {
+        data: [
+          ((this.barChartCountryOneData.testsPerOneMillion / 1000000) * 100).toFixed(4)
+        ],
+        "label": `${this.searchKeyOne} (${this.numberWithCommas(this.barChartCountryOneData.testsPerOneMillion)})`
+      },
+      {
+        data: [
+          ((this.barChartCountryTwoData.testsPerOneMillion / 1000000) * 100).toFixed(4)
+        ],
+        "label": `${this.searchKeyTwo} (${this.numberWithCommas(this.barChartCountryTwoData.testsPerOneMillion)})`
+      },
+    ]
+    this.totalTestsAndPerMillionLabels = ["Test Per One Million (%)"]
+    this.totalTestsAndPerMillionColors = [
+      { backgroundColor: "rgb(153, 204, 204, 0.5)" },
+      { backgroundColor: 'rgb(40, 167, 69, 0.5)' },
     ];
   }
 
@@ -348,6 +419,13 @@ export class CompareComponent implements OnInit {
 
   // to reset the data of charts property
   resetData() {
+
+    this.barChartCountryOneData = null
+    this.barChartCountryTwoData = null
+
+    this.linearChartCountryOneData = null
+    this.linearChartCountryTwoData = null
+
     this.totalCasesData = []
     this.totalCasesLabels = []
 
@@ -366,8 +444,11 @@ export class CompareComponent implements OnInit {
     this.totalRecoveredHistoricalData = []
     this.totalRecoveredHistoricalLabels = []
 
-    this.totalNewsCasesDeathsData = []
-    this.totalNewsCasesDeathsLabels = []
+    this.totalNewCasesData = []
+    this.totalNewCasesLabels = []
+
+    this.totalNewDeathsData = []
+    this.totalNewDeathsLabels = []
 
     this.totalTestsAndPerMillionData = []
     this.totalTestsAndPerMillionLabels = []
@@ -375,4 +456,317 @@ export class CompareComponent implements OnInit {
     this.totalCasesandDeathsPerMillionData = []
     this.totalCasesandDeathsPerMillionLabels = []
   }
+
+  // properties for bar charts only
+  public barChartType = "bar";
+  // All Cases Bar
+  public barChartTotalCasesOptions = {
+    legend: {
+      position: "bottom"
+    },
+    tooltips: {
+      borderWidth: 1,
+      caretPadding: 15,
+      displayColors: true,
+      enabled: true,
+      intersect: true,
+      titleMarginBottom: 10,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value + "%";
+        }
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total Cases In World (%)'
+          },
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 10,
+            callback: function (value) { return value + "%" }
+          },
+          gridLines: {
+            offsetGridLines: false
+          }
+        }
+      ],
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        clamp: true,
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value, ctx) => {
+          // return " " + ((value / this.worldData.cases) * 100).toFixed(4) + "%\n Of world Cases"
+          return value + "%";
+        },
+      },
+    },
+  };
+  // deaths, and recovered bar
+  public barChartOptions = {
+    legend: {
+      position: "bottom"
+    },
+    tooltips: {
+      borderWidth: 1,
+      caretPadding: 15,
+      displayColors: true,
+      enabled: true,
+      intersect: true,
+      titleMarginBottom: 10,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value + "%";
+        }
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total Cases In Countries (%)'
+          },
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 10,
+            callback: function (value) { return value + "%" }
+          },
+          gridLines: {
+            offsetGridLines: false
+          }
+        }
+      ],
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        clamp: true,
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value, ctx) => {
+          return value + "%";
+        },
+      },
+    },
+  };
+  // today cases bar
+  public barChartTodayCasesOptions = {
+    legend: {
+      position: "bottom"
+    },
+    tooltips: {
+      borderWidth: 1,
+      caretPadding: 15,
+      displayColors: true,
+      enabled: true,
+      intersect: true,
+      titleMarginBottom: 10,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value + "%";
+        }
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total New Positive Cases In World (%)'
+          },
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 10,
+            callback: function (value) { return value + "%" }
+          },
+          gridLines: {
+            offsetGridLines: false
+          }
+        }
+      ],
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        clamp: true,
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value, ctx) => {
+          return value + "%";
+        },
+      },
+    },
+  };
+  // today Deaths bar
+  public barChartTodayDeathsOptions = {
+    legend: {
+      position: "bottom"
+    },
+    tooltips: {
+      borderWidth: 1,
+      caretPadding: 15,
+      displayColors: true,
+      enabled: true,
+      intersect: true,
+      titleMarginBottom: 10,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value + "%";
+        }
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total New Death Cases In World (%)'
+          },
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 10,
+            callback: function (value) { return value + "%" }
+          },
+          gridLines: {
+            offsetGridLines: false
+          }
+        }
+      ],
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        clamp: true,
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value, ctx) => {
+          return value + "%";
+        },
+      },
+    },
+  };
+  // cases and deaths / one million bar chart options
+  public barChartTotalCasesAndDeathsMillionOptionsAndTests = {
+    legend: {
+      position: "bottom"
+    },
+    tooltips: {
+      borderWidth: 1,
+      caretPadding: 15,
+      displayColors: true,
+      enabled: true,
+      intersect: true,
+      titleMarginBottom: 10,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value + "%";
+        }
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'One Million Population In A Country (%)'
+          },
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 20,
+            callback: function (value) { return value + "%" }
+          },
+          gridLines: {
+            offsetGridLines: false
+          }
+        }
+      ],
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        clamp: true,
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value, ctx) => {
+          return value + "%";
+        },
+      },
+    },
+  };
+  // properties for linear charts only
+  public linearChartType = "line";
+  public linearChartOptions = {
+    legend: {
+      position: "bottom"
+    },
+    scaleShowVerticalLines: false,
+    scaleShowDrawborder: false,
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      datalabels: {
+        display: false
+      },
+    },
+  };
+  // Properties for all charts
+  public chartsPlugin = [pluginDataLabels];
+  public chartsLegend = "true";
 }

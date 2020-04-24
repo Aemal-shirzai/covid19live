@@ -58,6 +58,14 @@ export class ManageApiService {
       )
   }
 
+  // get historical data for multiple countries
+  getMultipleHistoricalData(countryOne, countryTwo) {
+    return this.http.get(`${this.baseUrl}/v2/historical/${countryOne},${countryTwo}`)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

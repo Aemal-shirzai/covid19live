@@ -36,6 +36,8 @@
                     <th mat-sort-header = "critical" start="desc">Critical Cases</th>
                     <th mat-sort-header = "casesPerOneMillion" start="desc">Cases/1M</th>
                     <th mat-sort-header = "deathsPerOneMillion" start="desc">Deaths/1M</th>
+                    <th mat-sort-header = "tests" start="desc">Total Tests</th>
+                    <th mat-sort-header = "testsPerOneMillion" start="desc">Tests/1M</th>
                     <th>Last Update</th>
                 </tr>
             </thead>
@@ -51,6 +53,8 @@
                     <td>{{ worldInfo.critical | number }}</td>
                     <td>{{ worldInfo.casesPerOneMillion | number }}</td>
                     <td>{{ worldInfo.deathsPerOneMillion | number }}</td>
+                    <td>{{ worldInfo.tests | number }}</td>
+                    <td>{{ worldInfo.testsPerOneMillion | number }}</td>
                     <td class="updateDateTable">{{ worldInfo.updated | date:'MMM d, y, h:mm:ss a' }}</td>
                 </tr>
                 <tr *ngFor="let country of allCountries">
@@ -64,6 +68,8 @@
                     <td>{{ country.critical | number }} <span class="percentage">({{ ((country.critical/worldInfo.critical)*100).toFixed(3) }}%)</span></td>
                     <td>{{ country.casesPerOneMillion | number }}</td>
                     <td>{{ country.deathsPerOneMillion | number }}</td>
+                    <td>{{ country.tests | number }}</td>
+                    <td>{{ country.testsPerOneMillion | number }}</td>
                     <td class="updateDateTable">{{country.updated | date:'MMM d, y, h:mm:ss a'}}</td>
                 </tr>
             </tbody>

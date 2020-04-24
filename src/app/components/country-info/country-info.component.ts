@@ -99,7 +99,7 @@ export class CountryInfoComponent implements OnInit {
       { data: [(this.countryData['active'] - this.countryData['critical']), this.countryData['critical']] }
     ];
     // set labels
-    this.activeLabels = ["Mid Condition Cases", "Critical Condition Cases"];
+    this.activeLabels = ["Normal Condition Cases", "Critical Condition Cases"];
   }
 
   setClosedCasesVisualization() {
@@ -117,7 +117,7 @@ export class CountryInfoComponent implements OnInit {
       { data: [(this.countryData['todayCases'] - this.countryData['todayDeaths']), this.countryData['todayDeaths']] }
     ];
     // set labels
-    this.todayLabels = ["Mid / critical / recovered Cases", "Deaths Cases"];
+    this.todayLabels = ["Normal / critical / recovered Cases", "Deaths Cases"];
   }
 
 
