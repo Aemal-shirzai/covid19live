@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CompareComponent implements OnInit {
   data: any = [];
-  historicalData: any = [];
+  // historicalData: any = [];
   worldData: any = [];
   error: boolean = false;
   loading: boolean = true;
@@ -100,17 +100,17 @@ export class CompareComponent implements OnInit {
         }
       )
 
-    this.apiService.getCountriesHistoricalData().subscribe
-      (
-        data => {
-          this.loading = false
-          this.historicalData = data
-        },
-        error => {
-          this.loading = false
-          this.error = true
-        }
-      )
+    // this.apiService.getCountriesHistoricalData().subscribe
+    //   (
+    //     data => {
+    //       this.loading = false
+    //       this.historicalData = data
+    //     },
+    //     error => {
+    //       this.loading = false
+    //       this.error = true
+    //     }
+    //   )
 
     this.apiService.getOverAllData().subscribe
       (
