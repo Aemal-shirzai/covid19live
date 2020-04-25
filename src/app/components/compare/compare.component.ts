@@ -16,6 +16,8 @@ export class CompareComponent implements OnInit {
   // historicalData: any = [];
   worldData: any = [];
   error: boolean = false;
+  notFoundErrorOne:String = null;
+  notFoundErrorTwo:String = null;
   loading: boolean = true;
   // searching
   searchKeyOneStatus: boolean = false
@@ -156,7 +158,13 @@ export class CompareComponent implements OnInit {
         this.barChartCountryTwoData = this.data[key]
       }
     }
-
+    this.setTotalNewCasesData()
+    this.setTotalNewDeathsData()
+    this.setTotalTestandTestPerMillionData()
+    this.setTotalCasesandDeathsPerMillionData()
+    this.setTotalCasesData()
+    this.setTotalDeathsData()
+    this.setTotalRecoveredData()
     this.apiService.getCountryHistoricalData(this.searchKeyOne).subscribe
       (
         data => {
@@ -165,31 +173,23 @@ export class CompareComponent implements OnInit {
           (
             data => {
               this.linearChartCountryTwoData = data
-              this.setTotalCasesData()
               this.setTotalCasesHistoricalData()
-              this.setTotalDeathsData()
               this.setTotalDeathsHistoricalData()
-              this.setTotalRecoveredData()
               this.setTotalRecoveredHistoricalData()
-              this.setTotalNewCasesData()
-              this.setTotalNewDeathsData()
-              this.setTotalTestandTestPerMillionData()
-              this.setTotalCasesandDeathsPerMillionData()
-              
               this.comparing = false
               event.target.innerHTML = "compare"
             },
             error => {
               this.comparing = false
               event.target.innerHTML = "compare"
-              this.error = true;
+              this.notFoundErrorTwo = `Could not found historical Data for ${this.searchKeyTwo}`;
             }
           )
         },
         error => {
           this.comparing = false
           event.target.innerHTML = "compare"
-          this.error = true;
+          this.notFoundErrorOne = `Could not found  historical Data for ${this.searchKeyOne}`;
         }
       )
 
@@ -419,6 +419,9 @@ export class CompareComponent implements OnInit {
 
   // to reset the data of charts property
   resetData() {
+    
+    this.notFoundErrorOne = null
+    this.notFoundErrorTwo = null
 
     this.barChartCountryOneData = null
     this.barChartCountryTwoData = null
