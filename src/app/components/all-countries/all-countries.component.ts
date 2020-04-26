@@ -94,6 +94,8 @@ export class AllCountriesComponent implements OnInit {
         case 'critical': return this.compare(a.critical, b.critical, isAsc);
         case 'casesPerOneMillion': return this.compare(a.casesPerOneMillion, b.casesPerOneMillion, isAsc);
         case 'deathsPerOneMillion': return this.compare(a.deathsPerOneMillion, b.deathsPerOneMillion, isAsc);
+        case 'tests': return this.compare(a.tests, b.tests, isAsc);
+        case 'testsPerOneMillion': return this.compare(a.testsPerOneMillion, b.testsPerOneMillion, isAsc);
         default: return 0;
       }
     });
