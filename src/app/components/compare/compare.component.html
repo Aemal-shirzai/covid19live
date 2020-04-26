@@ -40,7 +40,7 @@
     <div *ngIf="!comparing">
         <!-- Bar chart for total cases -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalCasesData">
-            <h5 class="text-center mb-2">Total Countries' Positive Cases Comparison Based On World Total Cases</h5>
+            <h5 class="text-center mb-2">Total Countries' Positive Cases Comparison Based On World Total Positive Cases</h5>
             <div>
                 <canvas baseChart [datasets]="totalCasesData" [labels]="totalCasesLabels" [options]="barChartTotalCasesOptions"
                     [legend]="chartsLegend" [chartType]="barChartType" [colors]="totalCasesColors" [plugins]="chartsPlugin">
@@ -50,7 +50,7 @@
         </div>
         <!--Total Cases linear chart for comparing historical Data -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalCasesHistoricalData && linearChartCountryOneData && linearChartCountryTwoData">
-            <h5 class="text-center mb-2">Total Cases Comparison Based On Date</h5>
+            <h5 class="text-center mb-2">Total Countries' Positive Cases Comparison Based On Date</h5>
             <div>
                 <canvas baseChart [datasets]="totalCasesHistoricalData" [labels]="totalCasesHistoricalLabels"
                     [options]="linearChartOptions" [legend]="chartsLegend" [chartType]="linearChartType"
@@ -61,7 +61,7 @@
         </div>
         <!-- Bar Chart for total deaths -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalDeathsData">
-            <h5 class="text-center mb-2">Total Countries' Deaths Cases Comparison Based On Countries' Total Cases</h5>
+            <h5 class="text-center mb-2">Total Countries' Deaths Cases Comparison Based On Countries' Total Positive Cases</h5>
             <div>
                 <canvas baseChart [datasets]="totalDeathsData" [labels]="totalDeathsLabels" [options]="barChartOptions"
                     [legend]="chartsLegend" [chartType]="barChartType" [colors]="totalDeathsColors"
@@ -71,7 +71,7 @@
         </div>
         <!--Total deaths linear chart for comparing historical Data -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalDeathsHistoricalData && linearChartCountryOneData && linearChartCountryTwoData">
-            <h5 class="text-center mb-2">Total Deaths Comparison Based On Date</h5>
+            <h5 class="text-center mb-2">Total Countries' Deaths Cases Comparison Based On Date</h5>
             <div>
                 <canvas baseChart [datasets]="totalDeathsHistoricalData" [labels]="totalDeathsHistoricalLabels"
                     [options]="linearChartOptions" [legend]="chartsLegend" [chartType]="linearChartType"
@@ -81,7 +81,7 @@
         </div>
         <!-- Bar Chart for total recovered -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalRecoveredData">
-            <h5 class="text-center mb-2">Total Countries' Recovered Cases Comparison Based On Countries' Total Cases</h5>
+            <h5 class="text-center mb-2">Total Countries' Recovered Cases Comparison Based On Countries' Total Positive Cases</h5>
             <div>
                 <canvas baseChart [datasets]="totalRecoveredData" [labels]="totalRecoveredLabels"
                     [options]="barChartOptions" [legend]="chartsLegend" [chartType]="barChartType"
@@ -91,7 +91,7 @@
         </div>
         <!--Total recovered linear chart for comparing historical Data -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalRecoveredHistoricalData && linearChartCountryOneData && linearChartCountryTwoData">
-            <h5 class="text-center mb-2">Total Recovered Comparison Based On Date</h5>
+            <h5 class="text-center mb-2">Total Countries' Recovered Cases Comparison Based On Date</h5>
             <div>
                 <canvas baseChart [datasets]="totalRecoveredHistoricalData" [labels]="totalRecoveredHistoricalLabels"
                     [options]="linearChartOptions" [legend]="chartsLegend" [chartType]="linearChartType"
@@ -101,7 +101,7 @@
         </div>
         <!-- Bar Chart for New cases and new deaths  -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalNewCasesData">
-            <h5 class="text-center mb-2">Total Countries' New Positive Cases Comparison Based On Worlds New Positive Cases</h5>
+            <h5 class="text-center mb-2">Total Countries' Today/New Positive Cases Comparison Based On Worlds New Positive Cases</h5>
             <div>
                 <canvas baseChart [datasets]="totalNewCasesData" [labels]="totalNewCasesLabels"
                     [options]="barChartTodayCasesOptions" [legend]="chartsLegend" [chartType]="barChartType"
@@ -111,7 +111,7 @@
         </div>
         <!-- Bar Chart for  new deaths  -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalNewDeathsData">
-            <h5 class="text-center mb-2">Total Countris' New Death Cases Comparison Based On Countries' Total New Positive Cases</h5>
+            <h5 class="text-center mb-2">Total Countris' Today/New Death Cases Comparison Based On Countries' Total New Positive Cases</h5>
             <div>
                 <canvas baseChart [datasets]="totalNewDeathsData" [labels]="totalNewDeathsLabels"
                     [options]="barChartTodayDeathsOptions" [legend]="chartsLegend" [chartType]="barChartType"
@@ -121,7 +121,7 @@
         </div>
         <!-- Bar Chart for New cases and new deaths recovered -->
         <div class="p-lg-2 pt-4 col-lg-10 col-sm-10 charts mb-5" *ngIf="totalCasesandDeathsPerMillionData">
-            <h5 class="text-center mb-2">Total Positive Cases & Deaths Comparison Per Countries' One Million Population</h5>
+            <h5 class="text-center mb-2">Total Positive & Death Cases Comparison Per Countries' One Million Population</h5>
             <div>
                 <canvas baseChart [datasets]="totalCasesandDeathsPerMillionData" [labels]="totalCasesandDeathsPerMillionLabels"
                     [options]="barChartTotalCasesAndDeathsMillionOptionsAndTests" [legend]="chartsLegend" [chartType]="barChartType"

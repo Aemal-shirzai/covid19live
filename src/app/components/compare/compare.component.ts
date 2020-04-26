@@ -488,7 +488,7 @@ export class CompareComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Total Cases In World (%)'
+            labelString: 'Total Positive Cases In World (%)'
           },
           ticks: {
             min: 0,
@@ -547,7 +547,7 @@ export class CompareComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Total Cases In Countries (%)'
+            labelString: 'Total Positive Cases In Each Country (%)'
           },
           ticks: {
             min: 0,
@@ -605,7 +605,7 @@ export class CompareComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Total New Positive Cases In World (%)'
+            labelString: 'Total Today/New Positive Cases In World (%)'
           },
           ticks: {
             min: 0,
@@ -663,7 +663,7 @@ export class CompareComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Total New Death Cases In World (%)'
+            labelString: 'Total Today/New Positive Cases In Each Country (%)'
           },
           ticks: {
             min: 0,
@@ -745,7 +745,7 @@ export class CompareComponent implements OnInit {
         clamp: true,
         font: {
           weight: 'bold',
-          size: 14,
+          size: 12,
         },
         formatter: (value, ctx) => {
           return value + "%";
