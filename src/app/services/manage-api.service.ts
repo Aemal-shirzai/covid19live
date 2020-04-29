@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+// Models
+import { OverAll } from '../models/over-all';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManageApiService {
-  baseUrl: string = "https://corona.lmao.ninja";
+  // baseUrl: string = "https://corona.lmao.ninja";
+  baseUrl: string = "https://disease.sh";
   constructor(private http: HttpClient) { }
 
   // cases data for all world
-  getOverAllData() {
-    return this.http.get(`${this.baseUrl}/v2/all`)
+  getOverAllData():Observable<OverAll[]> {
+    return this.http.get<OverAll[]>(`${this.baseUrl}/v2/all`)
       .pipe(
         catchError(this.errorHandler)
       )

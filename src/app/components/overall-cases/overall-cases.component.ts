@@ -4,13 +4,16 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import * as pluginDataLabels from "chartjs-plugin-datalabels";
 
+// models
+import { OverAll } from 'src/app/models/over-all';
+
 @Component({
   selector: 'app-overall-cases',
   templateUrl: './overall-cases.component.html',
   styleUrls: ['./overall-cases.component.scss']
 })
 export class OverallCasesComponent implements OnInit {
-  overAllData: any = {};
+  overAllData:OverAll[] = [];
   overAllHistoricalData: object = {};
   overAllDataLoading: boolean = true;
   overAllHistoricalDataLoading: boolean = true;
