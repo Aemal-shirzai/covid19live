@@ -12,7 +12,9 @@ export class AppComponent {
     location.onPopState(() => {
     
       // Array.from(document.getElementsByClassName("modal") as HTMLCollectionOf<HTMLElement>)[0].style.display = "none";
-      document.getElementsByClassName("modal-backdrop")[0].remove();
+      if(document.getElementsByClassName("modal-backdrop")[0]){
+        document.getElementsByClassName("modal-backdrop")[0].remove();
+      }
       document.getElementsByTagName("BODY")[0].classList.remove("modal-open")
       // Array.from(document.getElementsByClassName("modal-backdrop") as HTMLCollectionOf<HTMLElement>)[0].style.display = "none";
       

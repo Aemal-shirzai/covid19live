@@ -5,6 +5,11 @@ import { catchError } from 'rxjs/operators';
 
 // Models
 import { OverAll } from '../models/over-all';
+import { OverAllHistorical } from '../models/over-all-historical';
+import { AllCountries } from '../models/all-countries';
+import { Country } from '../models/country';
+import { CountryHistorical } from '../models/country-historical';
+import { AllCountriesHistorical } from '../models/all-countries-historical';
 
 @Injectable({
   providedIn: 'root'
@@ -23,40 +28,40 @@ export class ManageApiService {
   }
 
   // historical data for all world
-  getOverAllHistoricalData() {
-    return this.http.get(`${this.baseUrl}/v2/historical/all`)
+  getOverAllHistoricalData():Observable<OverAllHistorical[]> {
+    return this.http.get<OverAllHistorical[]>(`${this.baseUrl}/v2/historical/all`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
   // get countries all data
-  getAllCountriesData() {
-    return this.http.get(`${this.baseUrl}/v2/countries`)
+  getAllCountriesData():Observable<AllCountries[]> {
+    return this.http.get<AllCountries[]>(`${this.baseUrl}/v2/countries`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
   // get data for a single country
-  getCountryData(country) {
-    return this.http.get(`${this.baseUrl}/v2/countries/${country}`)
+  getCountryData(country):Observable<Country[]> {
+    return this.http.get<Country[]>(`${this.baseUrl}/v2/countries/${country}`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
   // get historical data for single country
-  getCountryHistoricalData(country) {
-    return this.http.get(`${this.baseUrl}/v2/historical/${country}`)
+  getCountryHistoricalData(country):Observable<CountryHistorical[]> {
+    return this.http.get<CountryHistorical[]>(`${this.baseUrl}/v2/historical/${country}`)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
   //get historical data for all coutries
-  getCountriesHistoricalData() {
-    return this.http.get(`${this.baseUrl}/v2/historical`)
+  getCountriesHistoricalData():Observable<AllCountriesHistorical[]> {
+    return this.http.get<AllCountriesHistorical[]>(`${this.baseUrl}/v2/historical`)
       .pipe(
         catchError(this.errorHandler)
       )
